@@ -113,7 +113,7 @@ app.use('/video', videoRoute);
 * Creates a port for express server since we don't want our app to clash with well known
 * ports such as 80 or 8080.
 * */
-const port = 5000;
+const port = process.env.port || 5000;
 
 // Starts the server and listen to port
 app.listen(port, () => {
