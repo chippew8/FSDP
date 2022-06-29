@@ -1,27 +1,16 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark text-warning mb-3">
 	<div class="container">
-		<a class="navbar-brand" href="/">VidJot</a>
+		<a class="navbar-brand" href="/">
+		<div class="logo-image">
+            <img src="../img/doragon.png" width="60" height="60" class="img-fluid">
+      	</div>
+		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
 			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-			{{#if staff}}
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/movie/addMovie">Movie List</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/movie/addMovie">Cinema List</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Promotion List</a>
-				</li>
-			</ul>
-			{{else}}
+			{{#if user}}
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" href="/">Home</a>
@@ -33,26 +22,33 @@
 					<a class="nav-link" href="/movie/addMovie">Add Movie</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="/admin/userlist">User List</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="/ticket/seats">Seats</a>
 				</li>
+			</ul>
+			{{else}}
+			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="/user/login">Login</a>
+					<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/user/register">Register</a>
+					<a class="nav-link" href="/movie/listMovies">Movie List</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/ticket/seats">Seats</a>
 				</li>
 			</ul>
 			{{/if}}
-			{{!-- <ul class="navbar-nav ml-auto">
-				{{#if staff}}
+			<ul class="navbar-nav ml-auto">
+				{{#if user}}
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-						id="navbarDropdownMenuLink">Video
-						Jots</a>
-					<div class="dropdown-menu">
-						<a href="" class="dropdown-item">Videos</a>
-						<a href="/video/addVideo" class="dropdown-item">Add Video</a>
-					</div>
+						id="navbarDropdownMenuLink">{{user.name}}</a>
+						<div class="dropdown-menu">
+							<a href="" class="dropdown-item">Type : {{user.accounttype}}</a>
+						</div>
 				</li>
 				<li class="nav-item">
 					<a href="/user/logout" class="nav-link">Logout</a>
@@ -64,7 +60,7 @@
 				<li class="nav-item">
 					<a href="/user/register" class="nav-link">Register</a>
 				</li>
-				{{/if}} --}}
+				{{/if}} 
 			</ul>
 		</div>
 	</div>

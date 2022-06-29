@@ -14,7 +14,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">First Name</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Update</th>
                                         <th scope="col">Delete</th>
@@ -26,8 +26,8 @@
                                         <th scope="row">{{id}}</th>
                                         <td>{{name}}</td>
                                         <td>{{email}}</td>
-                                        <td><button type="button" class="btn btn-primary m-2">Update</button></td>
-                                        <td><button type="button" class="btn btn-danger m-2">Delete</button></td>
+                                        <td><a href="/admin/updateuser/{{id}}"><button type="button" class="btn btn-primary m-2">Update</button></td></a>
+                                        <td><a href="/admin/deleteuser/{{id}}"><button type="button" class="btn btn-danger m-2">Delete</button></a></td>
                                     </tr>
                                     {{/each}}
                                 </tbody>

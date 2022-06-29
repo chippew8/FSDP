@@ -75,6 +75,9 @@ app.use(function(req,res,next){
 	if (req.user) {
 		res.locals.user = req.user;
 	}
+	else if (req.admin) {
+		res.locas.admin = req.admin;
+	}
 	next();
 	});
 
@@ -103,6 +106,7 @@ app.use(function (req, res, next) {
 	res.locals.messages = req.flash('message')
 	res.locals.errors = req.flash('error');
 	res.locals.user = req.user || null;
+	res.locals.admin = req.admin || null;
 	next();
 });
 

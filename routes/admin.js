@@ -46,7 +46,7 @@ router.post("/updateuser/:id",isAdmin, function(req,res){
     { where: { id: req.params.id } }
     )
         .then((result) => {
-        console.log(result[0] + ' video updated');
+        console.log(result[0] + ' User updated');
         res.redirect('/admin/userlist');
         })
         .catch(err => console.log(err));
@@ -56,12 +56,12 @@ router.get('/deleteuser/:id', isAdmin, async function (req, res) {
     try {
         let user = await User.findByPk(req.params.id);
         if (!user) {
-        flashMessage(res, 'error', 'Video not found');
+        flashMessage(res, 'error', 'User not found');
         res.redirect('/admin/userlist');
         return;
         }
     let result = await User.destroy({ where: { id: user.id } });
-    console.log(result + ' video deleted');
+    console.log(result + ' User deleted');
     res.redirect('/admin/userlist');
     }
     catch (err) {

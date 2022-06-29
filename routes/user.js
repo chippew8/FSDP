@@ -37,7 +37,6 @@ router.post('/register', async function (req, res) {
     try {
          // If all is well, checks if user is already registered
          let user = await User.findOne({ where: { email: email } });
-
          if (user) {
              // If user is found, that means email has already been registered
              flashMessage(res, 'error', email + ' already registered');
@@ -63,7 +62,7 @@ router.post('/register', async function (req, res) {
 router.post('/login', (req, res, next) => {
      passport.authenticate('local', {
      // Success redirect URL
-     successRedirect: '/video/listVideos',
+     successRedirect: '/',
      // Failure redirect URL
      failureRedirect: '/user/login',
 //     /* Setting the failureFlash option to true instructs Passport to flash
