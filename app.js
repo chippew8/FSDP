@@ -71,6 +71,13 @@ app.use(session({
 	saveUninitialized: false,
 }));
 
+app.use(function(req,res,next){
+	if (req.user) {
+		res.locals.user = req.user;
+	}
+	next();
+	});
+
 //Bring in database connection
 const DBConnection = require('./config/DBConnection');
 //Connects to MYSQL database
@@ -83,13 +90,13 @@ const flashMessenger = require('flash-messenger');
 app.use(flashMessenger.middleware);
 
 // // Passport Config
-// const passport = require('passport');
-// const passportConfig = require('./config/passportConfig');
-// passportConfig.localStrategy(passport);
+const passport = require('passport');
+const passportConfig = require('./config/passportConfig');
+passportConfig.localStrategy(passport);
 
-// // Initilize Passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Initilize Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Place to define global variables
 app.use(function (req, res, next) {
@@ -104,12 +111,14 @@ const mainRoute = require('./routes/main');
 const userRoute = require('./routes/user');
 const movieRoute = require('./routes/movie');
 const ticketRoute = require('./routes/ticket');
+const adminRoute = require('./routes/admin');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/user', userRoute);
 app.use('/movie', movieRoute);
 app.use('/ticket', ticketRoute);
+app.use('/admin', adminRoute);
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known
