@@ -9,11 +9,10 @@ router.get('/listMovies', (req, res) => {
         order: [['dateRelease', 'DESC']],
         raw: true
     })
-        .then((videos) => {
-            res.render('movie/listMovies', { Movie });
+        .then((movie) => {
+            res.render('movie/listMovies', { movie });
         })
         .catch(err => console.log(err));
-    res.render('movie/listMovies');
 });
 
 router.get('/addMovie', (req, res) => {
