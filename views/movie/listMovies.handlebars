@@ -1,11 +1,12 @@
 <div class="container">
 	{{#if movie}}
 	<div class="card card-body">
-		<h3 class="text-primary">Video Jots</h3>
+		<h3 class="text-primary">Movies Available</h3>
 		{{#each movie}}
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
 				<h5 class="card-title">{{title}}</h5>
+				{{story}}
 			</div>
 			<div class="card-body">
 				<div class="row">
@@ -31,17 +32,13 @@
 					</div>
 					<div class="col-sm-12 col-md-12 col-lg-2">
 						<p>
-							<a href="
-                            {{!-- /video/editVideo/{{id}} --}}
-                            " class="card-link mb-2">
+							<a href="/movie/editMovie/{{id}}" class="card-link mb-2">
 								<i class="fas fa-pencil-alt"></i>
 								Edit
 							</a>
 						</p>
 						<p>
-							<a href="
-                            {{!-- /video/deleteVideo/{{id}} --}}
-                            " class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+							<a href="/movie/deleteMovie/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
 								Delete
 							</a>
@@ -54,12 +51,13 @@
 				<div class="card-header" id="headingOne">
 					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
 						aria-expanded="false" aria-controls="collapseOne{{id}}" style="text-decoration: none;">
-						Story <i class="fas fa-chevron-down"></i>
+						Cinemas <i class="fas fa-chevron-down"></i>
 					</button>
 				</div>
 				<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
 					<div class="card-body">
-						{{story}}
+						{{#each Cinema}}
+						{{/each}}
 					</div>
 				</div>
 			</div>
@@ -67,7 +65,7 @@
 		{{/each}}
 	</div>
 	{{else}}
-	<h3>No videos jotted</h3>
+	<h3>No Movies Available</h3>
 	{{/if}}
 </div>
 
