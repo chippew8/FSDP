@@ -29,7 +29,7 @@ const app = express();
 *
 * */
 app.engine('handlebars', engine({
-	helpers: helpers,
+	// helpers: helpers,
 	handlebars: allowInsecurePrototypeAccess(Handlebars),
 	defaultLayout: 'main' // Specify default template views/layout/main.handlebar 
 }));
@@ -82,14 +82,14 @@ app.use(flash());
 const flashMessenger = require('flash-messenger');
 app.use(flashMessenger.middleware);
 
-// Passport Config
-const passport = require('passport');
-const passportConfig = require('./config/passportConfig');
-passportConfig.localStrategy(passport);
+// // Passport Config
+// const passport = require('passport');
+// const passportConfig = require('./config/passportConfig');
+// passportConfig.localStrategy(passport);
 
-// Initilize Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+// // Initilize Passport middleware
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Place to define global variables
 app.use(function (req, res, next) {
@@ -102,12 +102,12 @@ app.use(function (req, res, next) {
 // mainRoute is declared to point to routes/main.js
 const mainRoute = require('./routes/main');
 const userRoute = require('./routes/user');
-const videoRoute = require('./routes/video');
+const movieRoute = require('./routes/movie');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/user', userRoute);
-app.use('/video', videoRoute);
+app.use('/movie', movieRoute);
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known
