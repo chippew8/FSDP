@@ -37,12 +37,13 @@ router.get('/deleteTicket/:id', async function (req, res) {
     try {
         let seat = await Ticket.findByPk(req.params.id);
         if (!seat) {
-            flashMessage(res, 'error', 'Video not found');
-            res.redirect('/video/listVideos');
+            flashMessage(res, 'error', 'Ticket not found');
+            res.redirect('/ticket/listTickets');
             return;
         }
         let result = await Ticket.destroy({ where: { id: seat.id } });
-        console.log(result + ' video deleted');
+        console.log(result + ' ticket cancelled');
+        flashMessage(res, 'success', 'Ticket successfully cancelled.');
         res.redirect('/ticket/listTickets');
     }
     catch (err) {
