@@ -13,6 +13,7 @@ const setUpDB = (drop) => {
             */
             Cinema.hasMany(Movie);
             Movie.belongsTo(Cinema);
+            Ticket.belongsTo(Movie);
             mySQLDB.sync({
                 force: drop
             });
