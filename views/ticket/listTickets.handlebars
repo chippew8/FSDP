@@ -1,40 +1,32 @@
 <div class="container">
-	{{#if movie}}
+	{{#if ticket}}
 	<div class="card card-body">
 		<h3 class="text-primary">Video Jots</h3>
-		{{#each movie}}
+		{{#each ticket}}
 		<div class="card border-primary mb-2 w-100 mx-auto">
 			<div class="card-header">
-				<h5 class="card-title">{{title}}</h5>
+				<h5 class="card-title">Meow</h5>
 			</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-3">
-						<p class="font-italic">Subtitles</p>
+						<p class="font-italic">id</p>
 						<p class="text-info">
-							{{replaceCommas subtitles}}
+							{{id}}
 						</p>
 					</div>
 					<div class="col-sm-12 col-md-12 col-lg-3">
-						<p class="font-italic">Language</p>
+						<p class="font-italic">selectedSeats</p>
 						<p class="text-info">
-							{{replaceCommas language}}
+							{{replaceCommas selectedSeat}}
 						</p>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-2">
-						<p class="font-italic">Classification</p>
-						<p class="text-info">{{classification}}</p>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-2">
-						<p class="font-italic">Date of Release</p>
-						<p class="text-info">{{formatDate dateRelease 'DD MMM YYYY'}}</p>
 					</div>
 					<div class="col-sm-12 col-md-12 col-lg-2">
 						<p>
 							<a class="nav-link" href="/ticket/seats">Seats</a>
 						</p>
 						<p>
-							<a href="/ticket/deleteTicket/{{selectedSeat}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+							<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
 								<i class="far fa-trash-alt"></i>
 								Delete
 							</a>

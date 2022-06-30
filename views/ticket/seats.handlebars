@@ -43,6 +43,7 @@
     <div class="screen"></div>
 
     <div class="row">
+        A
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -51,9 +52,11 @@
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
+        A
     </div>
 
     <div class="row">
+        B
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat occupied"></div>
@@ -62,9 +65,11 @@
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
+        B
     </div>
 
     <div class="row">
+        C
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -73,9 +78,11 @@
         <div class="seat"></div>
         <div class="seat occupied"></div>
         <div class="seat occupied"></div>
+        C
     </div>
 
     <div class="row">
+        D
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -84,9 +91,11 @@
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
+        D
     </div>
 
     <div class="row">
+        E
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -95,9 +104,11 @@
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
+        E
     </div>
 
     <div class="row">
+        F
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -106,6 +117,7 @@
         <div class="seat occupied"></div>
         <div class="seat occupied"></div>
         <div class="seat"></div>
+        F
     </div>
 </div>
 
@@ -124,7 +136,30 @@
                 document.getElementById("paymentprice").value = x;
             }
         </script>
-        Proceed to payment
+        <form action="" method="post">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                <label class="font-italic">Seats avaliable</label>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
+                    <label class="form-check-label" for="A1">A1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
+                    <label class="form-check-label" for="A2">A2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
+                    <label class="form-check-label" for="A3">A3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
+                    <label class="form-check-label" for="A4">A4</label>
+                </div>
+            </div>
+            <br>
+			<button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
+        </form>
     </button>
 </div>
 
@@ -245,10 +280,6 @@
         background: rgba(255, 255, 255, 0.6);
         border-radius: 7px;
     }
-
-
-
-
 
     .left .cinema-row {
         transform: skew(-15deg);
