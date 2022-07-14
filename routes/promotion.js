@@ -62,6 +62,7 @@ router.post('/editPromotion/:id', (req, res) => {
 router.get('/deletePromotion/:id', async function(req, res) {
     try {
             let promo = await Promotion.findByPk(req.params.id);
+            console.log(promo)
         if (!promo) {
             flashMessage(res, 'error', 'Promotion not found');
             res.redirect('/promos/listPromotions');
