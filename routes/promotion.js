@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Promotion = require('../models/Promotion');
+const flashMessage = require('../helpers/messenger');
 // const ensureAuthenticated = require('../helpers/auth');
 
 router.get('/listPromotions', (req, res) => {
@@ -24,14 +25,22 @@ router.post('/addPromotion', (req, res) => {
     let description = req.body.description.slice(0, 4999);
     // Multi-value components return array of strings or undefined
     let code = req.body.code;
-    Promotion.create(
-        { headline, description, code }
-    )
-     .then((promotion) => {
-        console.log(promotion.toJSON());
-        res.redirect('/promos/listPromotions');
-    })
-    .catch(err => console.log(err))
+    let promotionFound = Promotion.findOne({ where: { code: code } });
+         if (promotionFound) {
+             // If promotionFound is found, that means code is in use
+             flashMessage(res, 'error', code + ' is already in use.');
+            res.render('promos/addPromotion');
+            }
+        else {
+            Promotion.create(
+                { headline, description, code }
+            )
+            .then((promotion) => {
+                console.log(promotion.toJSON());
+                res.redirect('/promos/listPromotions');
+            })
+            .catch(err => console.log(err))
+        }
 });
 
 router.get('/editPromotion/:id', (req, res) => {

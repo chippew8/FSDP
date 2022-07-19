@@ -13,6 +13,8 @@ router.get('/seats', (req, res) => {
 
 router.post('/seats', async (req, res) => {
     let promocode = req.body.promocode;
+    let promo = await Promotion.findOne({ where: { code: promocode } });
+    let result = await Promotion.destroy({ where: { code: promocode } });
     console.log(promo);
     console.log(promocode);
     let selectedSeat = req.body.seats.toString();
