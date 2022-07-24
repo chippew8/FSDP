@@ -76,7 +76,7 @@ app.use(function(req,res,next){
 		res.locals.user = req.user;
 	}
 	else if (req.admin) {
-		res.locas.admin = req.admin;
+		res.locals.admin = req.admin;
 	}
 	next();
 	});
@@ -90,7 +90,7 @@ DBConnection.setUpDB(false); //To set up databae with new tables (true)
 const flash = require('connect-flash'); 
 app.use(flash());
 const flashMessenger = require('flash-messenger');
-app.use(flashMessenger.middleware);
+app.use(flashMessenger.middleware);``
 
 // // Passport Config
 const passport = require('passport');
