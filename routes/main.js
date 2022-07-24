@@ -5,7 +5,7 @@ const Staff = require('../models/Staff');
 const bcrypt = require('bcryptjs');
 
 router.get('/', (req, res) => {
-	const title = 'Video Jotter';
+	const title = 'Golden Dragon';
 	// renders views/index.handlebars, passing title as an object
 	res.render('index', { title: title })
 });

@@ -28,8 +28,9 @@ router.post('/addMovie', (req, res) => {
     let subtitles = req.body.subtitles === undefined ? '' :
 req.body.subtitles.toString();
     let classification = req.body.classification;
+    let duration = req.body.duration;
     Movie.create(
-        { title, story, classification, language, subtitles,
+        { title, story, classification, duration, language, subtitles,
 dateRelease }
     )
      .then((movie) => {
