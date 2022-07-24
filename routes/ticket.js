@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const Ticket = require('../models/Ticket');
 const flashMessage = require('../helpers/messenger');
+const Promotion = require('../models/Promotion');
 // const ensureAuthenticated = require('../helpers/auth');
 
 
@@ -10,8 +11,16 @@ router.get('/seats', (req, res) => {
     res.render('ticket/seats');
 });
 
-router.post('/seats', (req, res) => {
+router.post('/seats', async (req, res) => {
+    let promocode = req.body.promocode;
+    let promo = await Promotion.findOne({ where: { code: promocode } });
+    let result = await Promotion.destroy({ where: { code: promocode } });
+    console.log(promo);
+    console.log(promocode);
     let selectedSeat = req.body.seats.toString();
+
+
+
     Ticket.create(
         { selectedSeat }
     )

@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="card card-body">
+		<h3>Edit Promotion</h3>
+		<form action="" method="post">
+			<div class="form-group">
+				{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+				<label class="font-italic" for="headline">Headline</label>
+				<input class="form-control" id="headline" name="headline" value="{{promotion.headline}}"/>
+			</div>
+			<div class="form-group mb-4">
+				<label class="font-italic" for="story">Description</label>
+				<textarea class="form-control" id="description" name="description" rows="7" maxlength="5000">{{promotion.description}}</textarea>
+			</div>
+            <div class="form-group mb-4">
+				<label class="font-italic" for="story">Code</label>
+				<input class="form-control" id="code" name="code" minlength="12" maxlength="12"  value="{{promotion.code}}"/>
+			</div>
+			<br>
+			<button id="btnSubmit" type="submit" class="btn btn-primary">Save</button>
+		</form>
+	</div>
+</div>

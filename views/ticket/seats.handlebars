@@ -124,45 +124,48 @@
 <p class="text">
     You have selected <span id="count">0</span> seats for a price of $<span id="price">0</span>
 </p>
+<form action="" method="post">
+    <div class="form-group mb-4">
+        <label class="font-italic" for="story">Promotion Code (MUST BE 12 Characters Long)</label>
+        <input class="form-control" id="promocode" name="promocode" minlength="12" maxlength="12" />
+    </div>
+    <div class="d-flex justify-content-center mb-4">
 
-<div class="d-flex justify-content-center mb-4">
-    <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal" data-target="#exampleModal"
-        data-whatever="" onclick="priceFunc()">
-        <script>
-            function priceFunc() {
-                var x = document.getElementById("price").textContent;
-                localStorage.setItem("totalprice", x);
+        <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal"
+            data-target="#exampleModal" data-whatever="" onclick="priceFunc()">
+            <script>
+                function priceFunc() {
+                    var x = document.getElementById("price").textContent;
+                    localStorage.setItem("totalprice", x);
 
-                document.getElementById("paymentprice").value = x;
-            }
-        </script>
-        <form action="" method="post">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                <label class="font-italic">Seats avaliable</label>
+                    document.getElementById("paymentprice").value = x;
+                }
+            </script>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <label class="font-italic">Seats avaliable</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
+                        <label class="form-check-label" for="A1">A1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
+                        <label class="form-check-label" for="A2">A2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
+                        <label class="form-check-label" for="A3">A3</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
+                        <label class="form-check-label" for="A4">A4</label>
+                    </div>
+                </div>
                 <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
-                    <label class="form-check-label" for="A1">A1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
-                    <label class="form-check-label" for="A2">A2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
-                    <label class="form-check-label" for="A3">A3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
-                    <label class="form-check-label" for="A4">A4</label>
-                </div>
-            </div>
-            <br>
-			<button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
-        </form>
-    </button>
-</div>
-
+                <button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
+        </button>
+    </div>
+</form>
 <script>
     const container = document.querySelector('.container');
     const seats = document.querySelectorAll('.row .seat:not(.occupied)');
