@@ -77,7 +77,7 @@ app.use(function(req,res,next){
 		res.locals.user = req.user;
 	}
 	else if (req.admin) {
-		res.locas.admin = req.admin;
+		res.locals.admin = req.admin;
 	}
 	next();
 	});
@@ -91,7 +91,7 @@ DBConnection.setUpDB(false); //To set up databae with new tables (true)
 const flash = require('connect-flash'); 
 app.use(flash());
 const flashMessenger = require('flash-messenger');
-app.use(flashMessenger.middleware);
+app.use(flashMessenger.middleware);``
 
 // // Passport Config
 const passport = require('passport');
@@ -117,11 +117,13 @@ const userRoute = require('./routes/user');
 const movieRoute = require('./routes/movie');
 const ticketRoute = require('./routes/ticket');
 const adminRoute = require('./routes/admin');
+const promoRoute = require('./routes/promotion');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/user', userRoute);
 app.use('/movie', movieRoute);
+app.use('/promos', promoRoute);
 app.use('/ticket', ticketRoute);
 app.use('/admin', adminRoute);
 
