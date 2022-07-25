@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const flashMessage = require('../helpers/messenger');
+const Staff = require('../models/Staff');
+const bcrypt = require('bcryptjs');
 
 router.get('/', (req, res) => {
 	const title = 'Video Jotter';

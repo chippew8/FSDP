@@ -41,4 +41,53 @@ router.post('/addMovie', (req, res) => {
         .catch(err => console.log(err))
 });
 
+router.get('/editMovie/:id', (req, res) => {
+    Movie.findByPk(req.params.id)
+        .then((movie) => {
+            res.render('movie/editMovie', { movie });
+        })
+        .catch(err => console.log(err));
+});
+
+router.post('/editMovie/:id', (req, res) => {
+    let title = req.body.title;
+    let story = req.body.story.slice(0, 1999);
+    let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
+    let language = req.body.language.toString();
+    let subtitles = req.body.subtitles === undefined ? '' : req.body.subtitles.toString();
+    let classification = req.body.classification;
+
+    Movie.update(
+        { title, story, classification, language, subtitles, dateRelease },
+        { where: { id: req.params.id } }
+    )
+        .then((result) => {
+            console.log(result[0] + ' movie updated');
+            res.redirect('/movie/listMovies');
+        })
+        .catch(err => console.log(err));
+});
+
+router.get('/deleteMovie/:id', async function(req, res) {
+    try {
+            let movie = await Movie.findByPk(req.params.id);
+        if (!movie) {
+            flashMessage(res, 'error', 'Movie not found');
+            res.redirect('/video/listVideos');
+            return;
+        }
+        // if (req.user.id != video.userId) {
+        //     flashMessage(res, 'error', 'Unauthorised access');
+        //     res.redirect('/video/listVideos');
+        //     return;
+        // }   
+        let result = await Movie.destroy({ where: { id: movie.id } });
+        console.log(result + ' movie deleted');
+        res.redirect('/movie/listMovies');
+    }
+    catch (err) {
+        console.log(err);   
+    }
+});
+
 module.exports = router;
