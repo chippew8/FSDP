@@ -131,52 +131,12 @@
     </div>
     <div class="d-flex justify-content-center mb-4">
 
-<<<<<<< HEAD
-<div class="d-flex justify-content-center mb-4">
-    <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal" data-target="#exampleModal"
-        data-whatever="" onclick="priceFunc()">
-        <script>
-            function priceFunc() {
-                var x = document.getElementById("price").textContent;
-                localStorage.setItem("totalprice", x);
-
-                document.getElementById("paymentprice").value = x;
-            }
-        </script>
-        <form action="" method="post">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                <label class="font-italic">Seats avaliable</label>
-                <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
-                    <label class="form-check-label" for="A1">A1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
-                    <label class="form-check-label" for="A2">A2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
-                    <label class="form-check-label" for="A3">A3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
-                    <label class="form-check-label" for="A4">A4</label>
-                </div>
-            </div>
-            <br>
-			<button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
-        </form>
-    </button>
-</div>
-=======
         <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal"
             data-target="#exampleModal" data-whatever="" onclick="priceFunc()">
             <script>
                 function priceFunc() {
                     var x = document.getElementById("price").textContent;
                     localStorage.setItem("totalprice", x);
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
 
                     document.getElementById("paymentprice").value = x;
                 }

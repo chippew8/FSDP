@@ -30,15 +30,8 @@ router.post('/addMovie', (req, res) => {
     let classification = req.body.classification;
     let duration = req.body.duration;
     Movie.create(
-<<<<<<< HEAD
-        {
-            title, story, classification, language, subtitles,
-            dateRelease
-        }
-=======
         { title, story, classification, duration, language, subtitles,
 dateRelease }
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
     )
         .then((movie) => {
             console.log(movie.toJSON());
