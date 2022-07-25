@@ -33,6 +33,7 @@ app.engine('handlebars', engine({
 	handlebars: allowInsecurePrototypeAccess(Handlebars),
 	defaultLayout: 'main' // Specify default template views/layout/main.handlebar 
 }));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
 // Express middleware to parse HTTP body in order to read HTTP data

@@ -26,18 +26,25 @@ router.post('/addMovie', (req, res) => {
     let language = req.body.language.toString();
     // Multi-value components return array of strings or undefined
     let subtitles = req.body.subtitles === undefined ? '' :
-req.body.subtitles.toString();
+        req.body.subtitles.toString();
     let classification = req.body.classification;
     let duration = req.body.duration;
     Movie.create(
+<<<<<<< HEAD
+        {
+            title, story, classification, language, subtitles,
+            dateRelease
+        }
+=======
         { title, story, classification, duration, language, subtitles,
 dateRelease }
+>>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
     )
-     .then((movie) => {
-        console.log(movie.toJSON());
-        res.redirect('/movie/listMovies');
-    })
-    .catch(err => console.log(err))
+        .then((movie) => {
+            console.log(movie.toJSON());
+            res.redirect('/movie/listMovies');
+        })
+        .catch(err => console.log(err))
 });
 
 router.get('/editMovie/:id', (req, res) => {
