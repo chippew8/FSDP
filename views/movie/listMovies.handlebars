@@ -1,21 +1,15 @@
 <div class="container">
-	{{#if movie}}
-	<div class="card card-body">
-		<h3 class="text-primary">Movies Available</h3>
-		{{#each movie}}
-		<div class="card border-primary mb-2 w-100 mx-auto">
-			<div class="card-header">
-				<h5 class="card-title">{{title}}</h5>
-				{{story}}
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-sm-12 col-md-12 col-lg-3">
-						<p class="font-italic">Subtitles</p>
-						<p class="text-info">
-							{{replaceCommas subtitles}}
-						</p>
+	{{#if admin}}
+		{{#if movie}}
+			<div class="card card-body">
+				<h3 class="text-primary">Movies Available</h3>
+				{{#each movie}}
+				<div class="card border-primary mb-2 w-100 mx-auto">
+					<div class="card-header">
+						<h5 class="card-title">{{title}}</h5>
+						{{story}}
 					</div>
+<<<<<<< HEAD
 					<div class="col-sm-12 col-md-12 col-lg-3">
 						<p class="font-italic">Language</p>
 						<p class="text-info">
@@ -32,6 +26,12 @@
 					</div>
 					<div class="col-sm-12 col-md-12 col-lg-2">
 						<p>
+<<<<<<< HEAD
+							<a class="nav-link" href="/ticket/seats">Seats</a>
+						</p>
+						<p>
+							<a href="/ticket/deleteTicket/{{selectedSeat}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+=======
 							<a href="/movie/editMovie/{{id}}" class="card-link mb-2">
 								<i class="fas fa-pencil-alt"></i>
 								Edit
@@ -39,6 +39,7 @@
 						</p>
 						<p>
 							<a href="/movie/deleteMovie/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+>>>>>>> 82a0c50b563dd5a6fa0a3e2d950d416f96528d2a
 								<i class="far fa-trash-alt"></i>
 								Delete
 							</a>
@@ -55,17 +56,148 @@
 					</button>
 				</div>
 				<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
+=======
+>>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
 					<div class="card-body">
-						{{#each Cinema}}
-						{{/each}}
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Subtitles</p>
+								<p class="text-info">
+									{{replaceCommas subtitles}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Language</p>
+								<p class="text-info">
+									{{language}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Duration</p>
+								<p class="text-info">
+									{{duration}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Classification</p>
+								<p class="text-info">{{classification}}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Date of Release</p>
+								<p class="text-info">{{formatDate dateRelease 'DD MMM YYYY'}}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p>
+									<a href="/movie/editMovie/{{title}}" class="card-link mb-2">
+										<i class="fas fa-pencil-alt"></i>
+										Edit
+									</a>
+								</p>
+								<p>
+									<a href="/movie/deleteMovie/{{title}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+										<i class="far fa-trash-alt"></i>
+										Delete
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion" id="storyAccordion">
+						<div class="card-header" id="headingOne">
+							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
+								aria-expanded="false" aria-controls="collapseOne{{id}}" style="text-decoration: none;">
+								Cinemas <i class="fas fa-chevron-down"></i>
+							</button>
+						</div>
+						<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
+							<div class="card-body">
+								{{#each Cinema}}
+								{{/each}}
+							</div>
+						</div>
 					</div>
 				</div>
+				{{/each}}
 			</div>
-		</div>
-		{{/each}}
-	</div>
+			{{else}}
+			<h3>No Movies Available</h3>
+			{{/if}}
 	{{else}}
-	<h3>No Movies Available</h3>
+		{{#if movie}}
+			<div class="card card-body">
+				<h3 class="text-primary">Movies Available</h3>
+				{{#each movie}}
+				<div class="card border-primary mb-2 w-100 mx-auto">
+					<div class="card-header">
+						<h5 class="card-title">{{title}}</h5>
+						{{story}}
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Subtitles</p>
+								<p class="text-info">
+									{{replaceCommas subtitles}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Language</p>
+								<p class="text-info">
+									{{language}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Duration</p>
+								<p class="text-info">
+									{{duration}}
+								</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Classification</p>
+								<p class="text-info">{{classification}}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Date of Release</p>
+								<p class="text-info">{{formatDate dateRelease 'DD MMM YYYY'}}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p>
+									<a href="/movie/editMovie/{{id}}" class="card-link mb-2">
+										<i class="fas fa-pencil-alt"></i>
+										Edit
+									</a>
+								</p>
+								<p>
+									<a href="/movie/deleteMovie/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+										<i class="far fa-trash-alt"></i>
+										Delete
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion" id="storyAccordion">
+						<div class="card-header" id="headingOne">
+							<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
+								aria-expanded="false" aria-controls="collapseOne{{id}}" style="text-decoration: none;">
+								Cinemas <i class="fas fa-chevron-down"></i>
+							</button>
+						</div>
+						<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
+							<div class="card-body">
+								{{#each Cinema}}
+								{{/each}}
+							</div>
+						</div>
+					</div>
+			</div>
+			{{/each}}
+		</div>
+		{{else}}
+		<h3>No Movies Available</h3>
+		{{/if}}		
 	{{/if}}
 </div>
 
