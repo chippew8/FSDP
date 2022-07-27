@@ -3,21 +3,31 @@ const router = express.Router();
 const moment = require('moment');
 const Ticket = require('../models/Ticket');
 const flashMessage = require('../helpers/messenger');
-<<<<<<< HEAD
-=======
 const Promotion = require('../models/Promotion');
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
 // const ensureAuthenticated = require('../helpers/auth');
 
 
-router.get('/seats', (req, res) => {
-    res.render('ticket/seats');
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+router.get('/seats', isLoggedIn, (req, res) => {
+    if (req.user.accounttype == 'User') {
+        res.render('ticket/seats', {layout : "usermain"});
+    }
+    else if (req.user.accounttype == 'Admin') {
+        res.render('ticket/seats', {layout : "adminmain"});
+    }
 });
 
-<<<<<<< HEAD
-router.post('/seats', (req, res) => {
-    let selectedSeat = req.body.seats.toString();
-=======
 router.post('/seats', async (req, res) => {
     let promocode = req.body.promocode;
     let promo = await Promotion.findOne({ where: { code: promocode } });
@@ -28,7 +38,6 @@ router.post('/seats', async (req, res) => {
 
 
 
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
     Ticket.create(
         { selectedSeat }
     )
@@ -39,13 +48,18 @@ router.post('/seats', async (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.get('/listTickets', (req, res) => {
+router.get('/listTickets', isLoggedIn, (req, res) => {
     Ticket.findAll({
         order: [['selectedSeat', 'DESC']],
         raw: true
     })
         .then((ticket) => {
-            res.render('ticket/listTickets', { ticket });
+            if (req.user.accounttype == 'User') {
+                res.render('ticket/listTickets', { ticket , layout: 'usermain'});
+            }
+            else if (req.user.accounttype == 'Admin') {
+                res.render('ticket/listTickets', { ticket , layout: 'adminmain'});
+            }
         })
         .catch(err => console.log(err));
 });
@@ -54,14 +68,6 @@ router.get('/deleteTicket/:id', async function (req, res) {
     try {
         let seat = await Ticket.findByPk(req.params.id);
         if (!seat) {
-<<<<<<< HEAD
-            flashMessage(res, 'error', 'Video not found');
-            res.redirect('/video/listVideos');
-            return;
-        }
-        let result = await Ticket.destroy({ where: { id: seat.id } });
-        console.log(result + ' video deleted');
-=======
             flashMessage(res, 'error', 'Ticket not found');
             res.redirect('/ticket/listTickets');
             return;
@@ -69,7 +75,6 @@ router.get('/deleteTicket/:id', async function (req, res) {
         let result = await Ticket.destroy({ where: { id: seat.id } });
         console.log(result + ' ticket cancelled');
         flashMessage(res, 'success', 'Ticket successfully cancelled.');
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
         res.redirect('/ticket/listTickets');
     }
     catch (err) {

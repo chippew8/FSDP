@@ -6,6 +6,7 @@ const User = db.define('user',
     {
         name: { type: Sequelize.STRING },
         email: { type: Sequelize.STRING },
+        gender: { type: Sequelize.STRING },
         phone_number: { type: Sequelize.INTEGER },
         password: { type: Sequelize.STRING },
         accounttype: { type: Sequelize.STRING }

@@ -19,14 +19,26 @@ function isAdmin(req, res, next) {
     res.redirect('/');
 }
 
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+
 router.get('/userlist', isAdmin, (req, res) => {
     User.findAll({
         order: [['id', 'ASC']],
         raw: true
     })
         .then((users) => {
-            // pass object to listVideos.handlebar
-            res.render('admin/userlist', { users });
+            res.render('admin/userlist', { users , layout : 'adminmain'});
         })
         .catch(err => console.log(err));
 });
@@ -34,7 +46,7 @@ router.get('/userlist', isAdmin, (req, res) => {
 router.get("/updateuser/:id", isAdmin, function(req,res){
     User.findByPk(req.params.id)
         .then((user) => {
-            res.render('admin/updateuser', { user });
+            res.render('admin/updateuser', { user, layout : 'adminmain' });
             })
         .catch(err => console.log(err));
 });

@@ -1,8 +1,33 @@
 const express = require('express')
 const router = express.Router();
 const moment = require('moment');
-const Movie = require('../models/Movie')
+const Movie = require('../models/Movie');
+const User = require('../models/User');
 // const ensureAuthenticated = require('../helpers/auth');
+
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
 
 router.get('/listMovies', (req, res) => {
     Movie.findAll({
@@ -10,13 +35,18 @@ router.get('/listMovies', (req, res) => {
         raw: true
     })
         .then((movie) => {
-            res.render('movie/listMovies', { movie });
+            if (req.user.accounttype == 'Admin') {
+                res.render('movie/listMovies', { movie, layout: 'adminmain' });
+            }
+            else if (req.user.accounttype == 'User') {
+                res.render('movie/listMovies', { movie, layout: 'usermain' });
+            }
         })
         .catch(err => console.log(err));
 });
 
-router.get('/addMovie', (req, res) => {
-    res.render('movie/addMovie');
+router.get('/addMovie', isAdmin, (req, res) => {
+    res.render('movie/addMovie', {layout : 'adminmain'});
 });
 
 router.post('/addMovie', (req, res) => {
@@ -30,15 +60,8 @@ router.post('/addMovie', (req, res) => {
     let classification = req.body.classification;
     let duration = req.body.duration;
     Movie.create(
-<<<<<<< HEAD
-        {
-            title, story, classification, language, subtitles,
-            dateRelease
-        }
-=======
         { title, story, classification, duration, language, subtitles,
 dateRelease }
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
     )
         .then((movie) => {
             console.log(movie.toJSON());
@@ -47,10 +70,10 @@ dateRelease }
         .catch(err => console.log(err))
 });
 
-router.get('/editMovie/:id', (req, res) => {
+router.get('/editMovie/:id', isAdmin, (req, res) => {
     Movie.findByPk(req.params.id)
         .then((movie) => {
-            res.render('movie/editMovie', { movie });
+            res.render('movie/editMovie', { movie, layout : 'adminmain' });
         })
         .catch(err => console.log(err));
 });
