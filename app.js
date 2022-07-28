@@ -118,6 +118,7 @@ const movieRoute = require('./routes/movie');
 const ticketRoute = require('./routes/ticket');
 const adminRoute = require('./routes/admin');
 const promoRoute = require('./routes/promotion');
+const cinemaRoute = require('./routes/cinema')
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
@@ -126,6 +127,7 @@ app.use('/movie', movieRoute);
 app.use('/promos', promoRoute);
 app.use('/ticket', ticketRoute);
 app.use('/admin', adminRoute);
+app.use('/cinema', cinemaRoute)
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known

@@ -3,6 +3,8 @@ const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
 // const ensureAuthenticated = require('../helpers/auth');
+require('dotenv').config();
+const fetch = require('node-fetch');
 
 router.get('/listMovies', (req, res) => {
     Movie.findAll({
@@ -29,9 +31,10 @@ router.post('/addMovie', (req, res) => {
         req.body.subtitles.toString();
     let classification = req.body.classification;
     let duration = req.body.duration;
+    let branchCode = req.body.branchCode
     Movie.create(
-        { title, story, classification, duration, language, subtitles,
-dateRelease }
+        { title, story, starring, posterURL, classification, duration, language, subtitles,
+dateRelease, branchCode }
     )
         .then((movie) => {
             console.log(movie.toJSON());
@@ -88,5 +91,17 @@ router.get('/deleteMovie/:id', async function(req, res) {
         console.log(err);   
     }
 });
+
+router.get('/omdb', (req, res) => {
+    let apikey = process.env.OMDB_API_KEY;
+    let title = req.query.title;
+    fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apikey}`)
+    .then(res => res.json())
+    .then(data => {
+    console.log(data);
+    res.json(data);
+    });
+});
+    
 
 module.exports = router;

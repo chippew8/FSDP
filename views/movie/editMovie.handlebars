@@ -2,17 +2,33 @@
 	<div class="card card-body">
 		<h3>Edit Movie</h3>
 		<form action="" method="post">
+			<div class="row mb-3">
+				<div class="col-lg-9">
 			<div class="form-group">
 				{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
 				<label class="font-italic" for="title">Title</label>
 				<input class="form-control" id="title" name="title" value="{{movie.title}}" />
+				<a href="#" onclick="getOMdbMovie()" tabindex="-1" class="card-link">
+			<i class="fas fa-film"></i> Get Open Movie DB Data
+			</a>
+			<span class="text-danger ml-2" id="OMdbErr" style="display:none">Unavailable</span>
 			</div>
 			<div class="form-group mb-4">
 				<label class="font-italic" for="story">Story</label>
 				<textarea class="form-control" id="story" name="story" rows="7"
 					maxlength="2000">{{movie.story}}</textarea>
 			</div>
-
+			<div class="form-group">
+				<label class="font-italic" for="story">Starring</label>
+				<input class="form-control" id="starring" name="starring" value="{{video.starring}}" />
+			</div>
+		</div>
+			<div class="col-lg-3">
+				<img id="poster" src="{{video.posterURL}}" alt="Poster" class="border img-thumbnail img-fluid" onerror="this.src='/img/no-image.jpg'">
+				{{!—- Hidden field to submit URL of poster to the server --}}
+				<input id="posterURL" type="hidden" name="posterURL" value="{{video.posterURL}}">
+			</div>
+		</div>
 			<div class="form-group">
 				<div class="row mb-2">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-4">
