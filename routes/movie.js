@@ -2,12 +2,20 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
-// const ensureAuthenticated = require('../helpers/auth');
+const ensureAuthenticated = require('../helpers/auth');
 require('dotenv').config();
 const fetch = require('node-fetch');
 
 router.get('/listMovies', (req, res) => {
     Movie.findAll({
+        order: [['dateRelease', 'DESC']],
+        raw: true
+    })
+        .then((movie) => {
+            res.render('movie/listMovies', { movie });
+        })
+        .catch(err => console.log(err));
+    Cinema.findAll({
         order: [['dateRelease', 'DESC']],
         raw: true
     })
@@ -26,6 +34,7 @@ router.post('/addMovie', (req, res) => {
     let story = req.body.story.slice(0, 1999);
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
     let language = req.body.language.toString();
+    let posterURL = req.body.posterURL
     // Multi-value components return array of strings or undefined
     let subtitles = req.body.subtitles === undefined ? '' :
         req.body.subtitles.toString();
@@ -33,7 +42,7 @@ router.post('/addMovie', (req, res) => {
     let duration = req.body.duration;
     let branchCode = req.body.branchCode
     Movie.create(
-        { title, story, starring, posterURL, classification, duration, language, subtitles,
+        { title, story, posterURL, classification, duration, language, subtitles,
 dateRelease, branchCode }
     )
         .then((movie) => {
@@ -92,15 +101,15 @@ router.get('/deleteMovie/:id', async function(req, res) {
     }
 });
 
-router.get('/omdb', (req, res) => {
+router.get('/omdb', ensureAuthenticated, (req, res) => {
     let apikey = process.env.OMDB_API_KEY;
     let title = req.query.title;
     fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apikey}`)
-    .then(res => res.json())
-    .then(data => {
-    console.log(data);
-    res.json(data);
-    });
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            res.json(data);
+        });
 });
     
 
