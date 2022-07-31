@@ -31,7 +31,7 @@ function initialiseTitle() {
 
 function getOMdbMovie() {
     let title = $('#title').val();
-    fetch(`/video/omdb?title=${title}`)
+    fetch(`/movie/omdb?title=${title}`)
         .then(res => res.json())
         .then((data) => {
             if (data.Response === 'False') {
@@ -43,7 +43,8 @@ function getOMdbMovie() {
                 $('#poster').attr('src', data.Poster);
                 $('#posterURL').val(data.Poster); // hidden input field to submit
                 $('#story').val(data.Plot);
-                $('#starring').val(data.Actors);
+                $('#genre').val(data.Genre);
+                $('#duration').val(data.Runtime);
                 $('#datepicker').val(moment(new Date(data.Released)).format('DD/MM/YYYY'));
             }
         })

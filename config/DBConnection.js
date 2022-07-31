@@ -4,6 +4,7 @@ const Movie = require('../models/Movie');
 const Ticket = require('../models/Ticket');
 const Staff = require('../models/Staff');
 const Customer = require('../models/Customer');
+const Showtime = require('../models/Showtime');
 
 
 
@@ -13,12 +14,16 @@ const setUpDB = (drop) => {
         .then(() => {
             console.log('Database connected');
             /*
-            Defines the relationship where a user has many videos.
+            Defines the relationship where a cinema has many movies/ all movies.
             The primary key from user will be a foreign key in video.
             */
             Cinema.hasMany(Movie);
+            Cinema.belongsTo(Movie);
+            Movie.hasMany(Cinema);
             Movie.belongsTo(Cinema);
-            Ticket.belongsTo(Movie);
+            Cinema.hasMany(Showtime);
+            Movie.hasMany(Showtime);
+            Showtime.hasMany(Ticket);
             mySQLDB.sync({
                 force: drop
             });

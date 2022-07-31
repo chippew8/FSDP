@@ -24,6 +24,7 @@ router.get('/addMovie', (req, res) => {
 router.post('/addMovie', (req, res) => {
     let title = req.body.title;
     let story = req.body.story.slice(0, 1999);
+    let posterURL = req.body.posterURL;
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
     let language = req.body.language.toString();
     // Multi-value components return array of strings or undefined
@@ -31,10 +32,10 @@ router.post('/addMovie', (req, res) => {
         req.body.subtitles.toString();
     let classification = req.body.classification;
     let duration = req.body.duration;
-    let branchCode = req.body.branchCode
+    let genre = req.body.genre
     Movie.create(
-        { title, story, starring, posterURL, classification, duration, language, subtitles,
-dateRelease, branchCode }
+        { title, story, posterURL, classification, duration, genre, language, subtitles,
+dateRelease }
     )
         .then((movie) => {
             console.log(movie.toJSON());
@@ -98,8 +99,8 @@ router.get('/omdb', (req, res) => {
     fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apikey}`)
     .then(res => res.json())
     .then(data => {
-    console.log(data);
-    res.json(data);
+        console.log(data);
+        res.json(data);
     });
 });
     
