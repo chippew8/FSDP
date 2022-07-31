@@ -7,13 +7,13 @@
 					<div class="form-group">
 						{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
 						<label class="font-italic" for="title"><h5>Title</h5></label>
-						<input class="form-control" id="title" name="title" onblur="initialiseTitle()"/>
-						<a href="#" onclick="getOMdbMovie()" tabindex="-1" class="card-link">
-						<i class="fas fa-film"></i> Get Open Movie DB Data
-						</a>
-						<span class="text-danger ml-2" id="OMdbErr" style="display:none">Unavailable</span>
+						<input class="form-control" id="title" name="title" onblur="initialiseTitle()"/><a href="#" onclick="getOMdbMovie()" tabindex="-1" class="card-link">
+					<i class="fas fa-film"></i> Get Open Movie DB Data
+					</a>
+					<span class="text-danger ml-2" id="OMdbErr" style="display:none">Unavailable</span>
 					</div>
-				
+					
+
 					<div class="form-group mb-4">
 						<label class="font-italic" for="story"><h5>Story</h5></label>
 						<textarea class="form-control" id="story" name="story" rows="7" maxlength="2000"></textarea>

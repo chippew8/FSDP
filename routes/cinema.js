@@ -21,4 +21,5 @@ router.post('/addCinema', (req, res) => {
         .catch(err => console.log(err))
 });
 
+
 module.exports = router;

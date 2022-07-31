@@ -2,12 +2,20 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
-// const ensureAuthenticated = require('../helpers/auth');
+const ensureAuthenticated = require('../helpers/auth');
 require('dotenv').config();
 const fetch = require('node-fetch');
 
 router.get('/listMovies', (req, res) => {
     Movie.findAll({
+        order: [['dateRelease', 'DESC']],
+        raw: true
+    })
+        .then((movie) => {
+            res.render('movie/listMovies', { movie });
+        })
+        .catch(err => console.log(err));
+    Cinema.findAll({
         order: [['dateRelease', 'DESC']],
         raw: true
     })
@@ -93,7 +101,7 @@ router.get('/deleteMovie/:id', async function(req, res) {
     }
 });
 
-router.get('/omdb', (req, res) => {
+router.get('/omdb', ensureAuthenticated, (req, res) => {
     let apikey = process.env.OMDB_API_KEY;
     let title = req.query.title;
     fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apikey}`)
