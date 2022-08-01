@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
+const Cinema = require('../models/Cinema')
 const ensureAuthenticated = require('../helpers/auth');
 require('dotenv').config();
 const fetch = require('node-fetch');
@@ -15,14 +16,7 @@ router.get('/listMovies', (req, res) => {
             res.render('movie/listMovies', { movie });
         })
         .catch(err => console.log(err));
-    Cinema.findAll({
-        order: [['dateRelease', 'DESC']],
-        raw: true
-    })
-        .then((movie) => {
-            res.render('movie/listMovies', { movie });
-        })
-        .catch(err => console.log(err));
+ 
 });
 
 router.get('/addMovie', (req, res) => {
