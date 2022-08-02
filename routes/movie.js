@@ -28,7 +28,8 @@ router.post('/addMovie', (req, res) => {
     let story = req.body.story.slice(0, 1999);
     let posterURL = req.body.posterURL;
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
-    let language = req.body.language.toString();
+    let language = req.body.language === undefined ? '':
+        req.body.language.toString();
     // Multi-value components return array of strings or undefined
     let subtitles = req.body.subtitles === undefined ? '' :
         req.body.subtitles.toString();
@@ -36,8 +37,7 @@ router.post('/addMovie', (req, res) => {
     let duration = req.body.duration;
     let genre = req.body.genre
     Movie.create(
-        { title, story, posterURL, classification, duration, genre, language, subtitles,
-dateRelease }
+        { title, story, posterURL, classification, duration, genre, language, subtitles, dateRelease }
     )
         .then((movie) => {
             console.log(movie.toJSON());
@@ -57,13 +57,17 @@ router.get('/editMovie/:id', (req, res) => {
 router.post('/editMovie/:id', (req, res) => {
     let title = req.body.title;
     let story = req.body.story.slice(0, 1999);
+    let posterURL = req.body.posterURL;
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
-    let language = req.body.language.toString();
-    let subtitles = req.body.subtitles === undefined ? '' : req.body.subtitles.toString();
+    let language = req.body.language === undefined ? '':
+        req.body.language.toString();
+    let subtitles = req.body.subtitles === undefined ? '' :
+        req.body.subtitles.toString();
     let classification = req.body.classification;
-
+    let duration = req.body.duration;
+    let genre = req.body.genre
     Movie.update(
-        { title, story, classification, language, subtitles, dateRelease },
+        { title, story, posterURL, classification, duration, genre, language, subtitles, dateRelease },
         { where: { id: req.params.id } }
     )
         .then((result) => {
