@@ -2,10 +2,11 @@ const Sequelize = require('sequelize');
 const db = require('../config/DBConfig');
 
 // Create videos table in MySQL Database
-const Showtime = db.define('showtime',
+const Showing = db.define('showing',
     {
         showday: { type: Sequelize.DATEONLY },
         showtime: { type: Sequelize.TIME }
+
     });
     
-module.exports = Showtime;
+module.exports = Showing;

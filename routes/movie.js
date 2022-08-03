@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
 const Cinema = require('../models/Cinema')
+const Showing = require('../models/Showing')
 const ensureAuthenticated = require('../helpers/auth');
 require('dotenv').config();
 const fetch = require('node-fetch');
