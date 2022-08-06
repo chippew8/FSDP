@@ -2,16 +2,30 @@
 	<div class="card card-body">
 		<h3>Add a showtime</h3>
 		<form action="" method="post">
-            {{#if movie}}
-                {{#each movie}}
+            {{#if movies}}
                 <label for="movieid"><h5>Which movie are you showing</h5></label>
                 <select id="{{movieid}}" name="movieid">
+				{{#each movies}}
                 <option value="{{movieid}}">{{title}}</option>
+				{{/each}}
                 </select>
-                {{/each}}
+                
             {{else}}
                 No movies currently
             {{/if}}
+			<br>
+			
+			{{#if cinemas}}
+                <label for="cinemaid"><h5>Where are you showing it at?</h5></label>
+                <select id="{{cinemaid}}" name="cinemaid">
+				{{#each cinemas}}
+                <option value="{{cinemaid}}">{{branch}}</option>
+				{{/each}}
+                </select>
+                
+            {{else}}
+                No cinemas currently
+            {{/if}}			
 			<div class="form-group">
 				<label class="font-italic" for="showday"><h5>Day of showing</h5></label>
 				<input id="datepicker" width="200" name="showday" readonly />

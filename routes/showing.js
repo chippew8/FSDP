@@ -9,11 +9,16 @@ router.get('/addShowing', (req, res) => {
         order: [['dateRelease', 'DESC']],
         raw: true
     })
-    Cinema.findAll({
-        raw: true
-    })
-        .then((movie,cinema) => {
-            res.render('showing/addShowing', { movie }, { cinema });
+    
+        .then((movies) => {
+            Cinema.findAll(
+                
+            )
+                .then((cinemas)=> {
+                    res.render('showing/addShowing', { movies, cinemas } )
+                }
+
+            );
         })
         .catch(err => console.log(err));
 });
@@ -21,9 +26,12 @@ router.get('/addShowing', (req, res) => {
 router.post('/addShowing', (req, res) => {
     let showday = req.body.showday;
     let showtime = req.body.showtime;
-    let movieid = req.body.movieid
+    // let movieId = req.body.movieid;
+    // let cinemaId = req.body.cinemaid;
     Showing.create(
-        { showday,showtime,movieid }
+        { showday, showtime, 
+            // cinemaId, movieId 
+        }
     )
         .then((showing) => {
             console.log(showing.toJSON());
