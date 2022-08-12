@@ -18,7 +18,9 @@ const setUpDB = (drop) => {
             The primary key from user will be a foreign key in video.
             */
             Cinema.hasMany(Showing);
+            Showing.belongsTo(Cinema);
             Movie.hasMany(Showing);
+            Showing.belongsTo(Movie);
             Showing.hasMany(Ticket);
             mySQLDB.sync({
                 force: drop

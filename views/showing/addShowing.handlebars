@@ -3,7 +3,7 @@
 		<h3>Add a showtime</h3>
 		<form action="" method="post">
             {{#if movies}}
-                <label for="movieid"><h5>Which movie are you showing</h5></label>
+                <label for="movieid"><h5>Movie showing</h5></label>
                 <select id="{{movieid}}" name="movieid">
 				{{#each movies}}
                 <option value="{{movieid}}">{{title}}</option>
@@ -16,7 +16,7 @@
 			<br>
 			
 			{{#if cinemas}}
-                <label for="cinemaid"><h5>Where are you showing it at?</h5></label>
+                <label for="cinemaid"><h5>Branch Location</h5></label>
                 <select id="{{cinemaid}}" name="cinemaid">
 				{{#each cinemas}}
                 <option value="{{cinemaid}}">{{branch}}</option>

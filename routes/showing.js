@@ -26,18 +26,17 @@ router.get('/addShowing', (req, res) => {
 router.post('/addShowing', (req, res) => {
     let showday = req.body.showday;
     let showtime = req.body.showtime;
-    // let movieId = req.body.movieid;
-    // let cinemaId = req.body.cinemaid;
+    let movieId = req.body.movieid;
+    let cinemaId = req.body.cinemaid;
     Showing.create(
-        { showday, showtime, 
-            // cinemaId, movieId 
-        }
+        { showday, showtime, cinemaId, movieId }
     )
-        .then((showing) => {
-            console.log(showing.toJSON());
-            res.redirect('/');
-        })
-        .catch(err => console.log(err))
+    
+            .then((showing) => {
+                console.log(showing.toJSON());
+                res.redirect('/');
+            })
+            .catch(err => console.log(err))
 });
 
 
