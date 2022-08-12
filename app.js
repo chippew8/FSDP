@@ -11,7 +11,6 @@ const session = require('express-session');
 const path = require('path');
 const helpers = require('./helpers/handlebars')
 require('dotenv').config();
-
 /*
 * Creates an Express server - Express is a web application framework for creating web applications
 * in Node JS.
@@ -118,6 +117,9 @@ const movieRoute = require('./routes/movie');
 const ticketRoute = require('./routes/ticket');
 const adminRoute = require('./routes/admin');
 const promoRoute = require('./routes/promotion');
+const e = require('connect-flash');
+const multer = require('multer');
+const req = require('express/lib/request');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
