@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-3">
 						<p class="font-italic">id</p>
-						<p class="text-info">
+						<p class="text-info">	
 							{{id}}
 						</p>
 					</div>
@@ -26,6 +26,9 @@
 							<a class="nav-link" href="/ticket/seats">Seats</a>
 						</p>
 						<p>
+							<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Delete
 							<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm cancellation?">
 								<i class="far fa-trash-alt"></i>
 								Cancel Ticket

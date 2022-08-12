@@ -15,6 +15,41 @@ router.get('/register', (req, res) => {
     res.render('user/register');
 });
 
+router.get('/profile', (req, res) => {
+    loggeduser = req.user
+    if (loggeduser.accounttype == 'User') {
+        res.render('user/profile/profile', { loggeduser, layout : 'usermain' });
+    }
+    else if (loggeduser.accounttype == 'Admin') {
+        res.render('user/profile/profile', { loggeduser, layout : 'adminmain' });
+    }
+});
+
+router.get("/profile/updateprofile/:id", function(req,res){
+    loggeduser = req.user
+    if (loggeduser.accounttype == 'User') {
+        res.render('user/profile/updateprofile', { loggeduser, layout : 'usermain' });
+    }
+    else if (loggeduser.accounttype == 'Admin') {
+        res.render('user/profile/updateprofile', { loggeduser, layout : 'adminmain' });
+    }
+});
+
+router.post("/profile/updateprofile/:id", function(req,res){
+    let name = req.body.name;
+    let email = req.body.email;
+    let phone_number = req.body.phone_number
+    let gender = req.body.gender
+    User.update( { name, email, phone_number, gender},
+    { where: { id: req.params.id } }
+    )
+        .then((result) => {
+        console.log(result[0] + ' profile updated');
+        res.redirect('/user/profile');
+        })
+        .catch(err => console.log(err));
+})
+
 router.post('/register', async function (req, res) {
     let { name, email, password, password2 } = req.body;
 
@@ -76,5 +111,7 @@ router.get('/logout', (req, res) => {
      req.logout();
      res.redirect('/');
  });
+
+
 
 module.exports = router;

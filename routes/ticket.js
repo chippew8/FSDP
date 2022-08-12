@@ -7,8 +7,25 @@ const Promotion = require('../models/Promotion');
 // const ensureAuthenticated = require('../helpers/auth');
 
 
-router.get('/seats', (req, res) => {
-    res.render('ticket/seats');
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+router.get('/seats', isLoggedIn, (req, res) => {
+    if (req.user.accounttype == 'User') {
+        res.render('ticket/seats', {layout : "usermain"});
+    }
+    else if (req.user.accounttype == 'Admin') {
+        res.render('ticket/seats', {layout : "adminmain"});
+    }
 });
 
 router.post('/seats', async (req, res) => {
@@ -31,13 +48,18 @@ router.post('/seats', async (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.get('/listTickets', (req, res) => {
+router.get('/listTickets', isLoggedIn, (req, res) => {
     Ticket.findAll({
         order: [['selectedSeat', 'DESC']],
         raw: true
     })
         .then((ticket) => {
-            res.render('ticket/listTickets', { ticket });
+            if (req.user.accounttype == 'User') {
+                res.render('ticket/listTickets', { ticket , layout: 'usermain'});
+            }
+            else if (req.user.accounttype == 'Admin') {
+                res.render('ticket/listTickets', { ticket , layout: 'adminmain'});
+            }
         })
         .catch(err => console.log(err));
 });

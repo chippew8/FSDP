@@ -10,80 +10,62 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-			{{#if user}}
+			{{!-- {{#if user}}
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/">Home</a>
-				</li>
-				<div class="dropdown">
-					<button class="btn dropdown-toggle text-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Movie
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="nav-link text-dark" href="/movie/listMovies">Movie List</a>
-						<a class="nav-link text-dark" href="/movie/addMovie">Add Movie</a>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="btn dropdown-toggle text-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Promotion
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="nav-link text-dark" href="/promos/listPromotions">Promotion List</a>
-						<a class="nav-link text-dark" href="/promos/addPromotion">Add Promotions</a>
-					</div>
-				</div>
-				<li class="nav-item">
-					<a class="nav-link text-warning" href="/admin/userlist">User List</a>
+					<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/cinema/addCinema">Add Cinema</a>
+					<a class="nav-link" href="/movie/listMovies">Movie List</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/showing/addShowing">Add Showing</a>
+					<a class="nav-link" href="/movie/addMovie">Add Movie</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/ticket/listTickets">Ticket List</a>
+					<a class="nav-link" href="/admin/userlist">User List</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/ticket/seats">Seats</a>
+					<a class="nav-link" href="/ticket/listTickets">Ticket List</a>
 				</li>
-				
-			</ul>
-			{{else}}
+				<li class="nav-item">
+					<a class="nav-link" href="/ticket/seats">Seats</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/promos/listPromotions">Promotion List</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/promos/addPromotion">Add Promotions</a>
+				</li>
+			</ul> --}}
+			{{!-- {{else}} --}}
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/">Home</a>
+					<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-warning" href="/movie/listMovies">Movie List</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-warning" href="/ticket/seats">Seats</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-warning" href="/promos/listPromotions">Promotion List</a>
+					<a class="nav-link" href="/movie/listMovies">Movie List</a>
 				</li>
 			</ul>
-			{{/if}}
+			{{!-- {{/if}} --}}
 			<ul class="navbar-nav ml-auto">
 				{{#if user}}
 				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle text-warning" data-toggle="dropdown"
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 						id="navbarDropdownMenuLink">{{user.name}}</a>
 						<div class="dropdown-menu">
-							<a href="" class="dropdown-item text-warning">Type : {{user.accounttype}}</a>
+							<a href="" class="dropdown-item">Type : {{user.accounttype}}</a>
+							<a href="/user/profile" class="dropdown-item">Profile</a>
 						</div>
 				</li>
 				<li class="nav-item">
-					<a href="/user/logout" class="nav-link text-warning">Logout</a>
+					<a href="/user/logout" class="nav-link">Logout</a>
 				</li>
 				{{else}}
 				<li class="nav-item">
-					<a href="/user/login" class="nav-link text-warning">Login</a>
+					<a href="/user/login" class="nav-link">Login</a>
 				</li>
 				<li class="nav-item">
-					<a href="/user/register" class="nav-link text-warning">Register</a>
+					<a href="/user/register" class="nav-link">Register</a>
 				</li>
 				{{/if}} 
 			</ul>

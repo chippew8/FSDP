@@ -3,21 +3,51 @@ const router = express.Router();
 const moment = require('moment');
 const Promotion = require('../models/Promotion');
 const flashMessage = require('../helpers/messenger');
+
 // const ensureAuthenticated = require('../helpers/auth');
 
-router.get('/listPromotions', (req, res) => {
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+router.get('/listPromotions', isLoggedIn, (req, res) => {
     Promotion.findAll({
         order: [['code', 'DESC']],
         raw: true
     })
         .then((promotion) => {
-            res.render('promos/listPromotions', { promotion });
+            if (req.user.accounttype == 'Admin') {
+                res.render('promos/listPromotions', { promotion, layout: 'adminmain' });
+            }
+            else if (req.user.accounttype == 'User') {
+                res.render('promos/listPromotions', { promotion, layout: 'usermain' });
+            }
         })
         .catch(err => console.log(err));
 });
 
-router.get('/addPromotion', (req, res) => {
-    res.render('promos/addPromotion');
+router.get('/addPromotion', isAdmin, (req, res) => {
+    res.render('promos/addPromotion', {layout : 'adminmain'});
 });
 
 router.post('/addPromotion', (req, res) => {
@@ -29,7 +59,12 @@ router.post('/addPromotion', (req, res) => {
          if (promotionFound) {
              // If promotionFound is found, that means code is in use
              flashMessage(res, 'error', code + ' is already in use.');
-            res.render('promos/addPromotion');
+            if (req.user.accounttype == 'Admin') {
+                res.render('promos/addPromotion', {layout: "adminmain"});
+            }
+            else if (req.user.accounttype == 'User') {
+                res.render('promos/addPromotion', {layout: "usermain"});
+            }
             }
         else {
             Promotion.create(
@@ -43,10 +78,10 @@ router.post('/addPromotion', (req, res) => {
         }
 });
 
-router.get('/editPromotion/:id', (req, res) => {
+router.get('/editPromotion/:id', isAdmin, (req, res) => {
     Promotion.findByPk(req.params.id)
         .then((promotion) => {
-            res.render('promos/editPromotion', { promotion });
+            res.render('promos/editPromotion', { promotion , layout: 'adminmain'});
         })
         .catch(err => console.log(err));
 });
