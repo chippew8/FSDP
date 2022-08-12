@@ -8,7 +8,19 @@ const ensureAuthenticated = require('../helpers/auth');
 require('dotenv').config();
 const fetch = require('node-fetch');
 
-router.get('/listMovies', (req, res) => {
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+router.get('/listMovies', isAdmin, (req, res) => {
     Movie.findAll({
         order: [['dateRelease', 'DESC']],
         raw: true
