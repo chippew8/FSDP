@@ -20,20 +20,30 @@ function isAdmin(req, res, next) {
     res.redirect('/');
 }
 
-router.get('/listMovies', isAdmin, (req, res) => {
+router.get('/listMovies', (req, res) => {
     Movie.findAll({
         order: [['dateRelease', 'DESC']],
         raw: true
     })
         .then((movie) => {
-            res.render('movie/listMovies', { movie });
+            if (req.user.accounttype == 'Admin') {
+                res.render('movie/listMovies', { movie, layout: 'adminmain' });
+            }
+            else if (req.user.accounttype == 'User') {
+                res.render('movie/listMovies', { movie, layout: 'usermain' });
+            }
         })
         .catch(err => console.log(err));
  
 });
 
 router.get('/addMovie', (req, res) => {
-    res.render('movie/addMovie');
+    if (req.user.accounttype == 'Admin') {
+        res.render('movie/addMovie', { layout: 'adminmain' });
+    }
+    else if (req.user.accounttype == 'User') {
+        res.render('movie/addMovie', { layout: 'usermain' });
+    }
 });
 
 router.post('/addMovie', (req, res) => {
