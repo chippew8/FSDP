@@ -2,80 +2,69 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Ticket = require('../models/Ticket');
+const Showtime = require('../models/Showtime');
 const flashMessage = require('../helpers/messenger');
-<<<<<<< HEAD
-=======
 const Promotion = require('../models/Promotion');
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
+var Title;
+var DateRelease;
+var Branch;
+var updated_seats;
+var no_of_Ticket;
 // const ensureAuthenticated = require('../helpers/auth');
 
 
 router.get('/seats', (req, res) => {
-    res.render('ticket/seats');
-});
-
-<<<<<<< HEAD
-router.post('/seats', (req, res) => {
-    let selectedSeat = req.body.seats.toString();
-=======
-router.post('/seats', async (req, res) => {
-    let promocode = req.body.promocode;
-    let promo = await Promotion.findOne({ where: { code: promocode } });
-    let result = await Promotion.destroy({ where: { code: promocode } });
-    console.log(promo);
-    console.log(promocode);
-    let selectedSeat = req.body.seats.toString();
-
-
-
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
-    Ticket.create(
-        { selectedSeat }
-    )
-        .then((ticket) => {
-            console.log(ticket.toJSON());
-            res.redirect('/ticket/listTickets');
-        })
-        .catch(err => console.log(err))
-});
-
-router.get('/listTickets', (req, res) => {
-    Ticket.findAll({
-        order: [['selectedSeat', 'DESC']],
+    Showtime.findAll({
+        where: { 'branch': 'Tampines' },
         raw: true
     })
-        .then((ticket) => {
-            res.render('ticket/listTickets', { ticket });
+        .then((showtime) => {
+            res.render('ticket/seats', { showtime });
         })
         .catch(err => console.log(err));
 });
 
-router.get('/deleteTicket/:id', async function (req, res) {
-    try {
-        let seat = await Ticket.findByPk(req.params.id);
-        if (!seat) {
-<<<<<<< HEAD
-            flashMessage(res, 'error', 'Video not found');
-            res.redirect('/video/listVideos');
-            return;
-        }
-        let result = await Ticket.destroy({ where: { id: seat.id } });
-        console.log(result + ' video deleted');
-=======
-            flashMessage(res, 'error', 'Ticket not found');
-            res.redirect('/ticket/listTickets');
-            return;
-        }
-        let result = await Ticket.destroy({ where: { id: seat.id } });
-        console.log(result + ' ticket cancelled');
-        flashMessage(res, 'success', 'Ticket successfully cancelled.');
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
-        res.redirect('/ticket/listTickets');
-    }
-    catch (err) {
-        console.log(err);
-    }
+
+router.post('/seats', (req, res) => {
+    let selected_seats = req.body['selected-seats'];
+    updated_seats = req.body['updated-seats'];
+    let seats = updated_seats.toString();
+    Branch = req.body['branch'];
+    Title = req.body['title'];
+    DateRelease = "2022-09-21"
+    no_of_Ticket = req.body['noTicket'];
+
+    Showtime.update(
+        { 'seat' :seats },
+        { where: { 'branch' : 'Bedok' } }
+    )
+        .then(() => {
+            res.redirect('payment');
+        })
+        .catch(err => console.log(err));
+    // let story = req.body.story.slice(0, 1999);
+    // let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
 });
 
+router.get('/payment', (req, res) => {
+    var price = no_of_Ticket * 9;
+    console.log(Title);
+    res.render('ticket/payment', { price, Title, no_of_Ticket });
+});
+
+router.post('/payment', (req, res) => {
+
+    Showtime.update(
+        { 'seat' :seats },
+        { where: { 'branch' : 'Bedok' } }
+    )
+        .then((result) => {
+            console.log(result[0] + ' showtime updated');
+            res.redirect('/movie/listMovies');
+        })
+        .catch(err => console.log(err));
+    // let story = req.body.story.slice(0, 1999);
+    // let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
+});
 
 module.exports = router;

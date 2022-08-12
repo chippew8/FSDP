@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
+const Showtime = require('../models/Showtime')
 // const ensureAuthenticated = require('../helpers/auth');
 
 router.get('/listMovies', (req, res) => {
@@ -29,22 +30,33 @@ router.post('/addMovie', (req, res) => {
         req.body.subtitles.toString();
     let classification = req.body.classification;
     let duration = req.body.duration;
+    let seat = "A1,A2,A3,A4,A5,A6,B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,C6";
+    let branch = "Tampines";
+    
+    for (var i of ["Tampines", "Bedok", "Yishun", "Woodlands"]){
+        for (var j of ["11:00", "14:00", "17:00", "17:30", "19:30", "20:00", "21:30", "20:30"]) {
+            Showtime.create(
+                {
+                    i, title, dateRelease, j, seat
+                }
+            )
+                .catch(err => console.log(err))
+        }
+      }
+      
     Movie.create(
-<<<<<<< HEAD
         {
-            title, story, classification, language, subtitles,
+            title, story, classification, duration, language, subtitles,
             dateRelease
         }
-=======
-        { title, story, classification, duration, language, subtitles,
-dateRelease }
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
     )
         .then((movie) => {
             console.log(movie.toJSON());
             res.redirect('/movie/listMovies');
         })
         .catch(err => console.log(err))
+
+    
 });
 
 router.get('/editMovie/:id', (req, res) => {
@@ -74,9 +86,9 @@ router.post('/editMovie/:id', (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.get('/deleteMovie/:id', async function(req, res) {
+router.get('/deleteMovie/:id', async function (req, res) {
     try {
-            let movie = await Movie.findByPk(req.params.id);
+        let movie = await Movie.findByPk(req.params.id);
         if (!movie) {
             flashMessage(res, 'error', 'Movie not found');
             res.redirect('/video/listVideos');
@@ -92,7 +104,7 @@ router.get('/deleteMovie/:id', async function(req, res) {
         res.redirect('/movie/listMovies');
     }
     catch (err) {
-        console.log(err);   
+        console.log(err);
     }
 });
 

@@ -13,7 +13,7 @@ const Movie = db.define('movie',
         classification: { type: Sequelize.STRING },
         duration: { type: Sequelize.INTEGER },
         dateRelease: { type: Sequelize.DATE },
-        branchCode: { type:Sequelize.STRING(2) }
+        branchCode: { type:Sequelize.STRING(2) },
     });
     
 module.exports = Movie;

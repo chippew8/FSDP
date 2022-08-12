@@ -2,13 +2,11 @@ const mySQLDB = require('./DBConfig');
 const Cinema = require('../models/Cinema');
 const Movie = require('../models/Movie');
 const Ticket = require('../models/Ticket');
-<<<<<<< HEAD
-=======
 const Staff = require('../models/Staff');
 const Customer = require('../models/Customer');
+const Showtime = require('../models/Showtime');
 
 
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
 
 // If drop is true, all existing tables are dropped and recreated
 const setUpDB = (drop) => {
@@ -20,7 +18,7 @@ const setUpDB = (drop) => {
             The primary key from user will be a foreign key in video.
             */
             Cinema.hasMany(Movie);
-            Movie.belongsTo(Cinema);
+            Showtime.belongsTo(Movie);
             Ticket.belongsTo(Movie);
             mySQLDB.sync({
                 force: drop

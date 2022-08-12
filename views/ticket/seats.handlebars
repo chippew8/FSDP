@@ -1,584 +1,160 @@
-<div class="movie-container">
-    <label>Selected Movies</label>
-    <select id="movie">
-        <option value="140" aria-readonly="true" id="selectedMovieName">
-        </option>
-    </select>
+{{#if showtime}}
+{{#each showtime}}
+<div>
+  <p class="hiddens" id="Sbranch">{{branch}}</p>
+  <p class="hiddens" id="Stitle">{{title}}</p>
+  <p class="hiddens" id="Sshowtime">{{showtime}}</p>
+</div>
+<p id="seatings">{{seat}}</p>
+{{/each}}
+{{else}}
+<h3>No More avaliable seats</h3>
+{{/if}}
 
-    <label>Selected Date</label>
-    <select id="movie">
-        <option aria-readonly="true" id="selectedMovieDate">
-            <script>
-                document.getElementById("selectedMovieDate").innerHTML = localStorage.getItem("movieDate");  
-            </script>
-        </option>
-    </select>
-
-    <label>Selected Time</label>
-    <select id="movie">
-        <option aria-readonly="true" id="selectedMovieTime">
-            <script>
-                document.getElementById("selectedMovieTime").innerHTML = localStorage.getItem("movietime");  
-            </script>
-        </option>
-    </select>
+<div class="seat-container">
+  <div class="seating" id="seating-plan"></div>
 </div>
 
-<ul class="showcase">
-    <li>
-        <div class="seat"></div>
-        <small>N/A</small>
-    </li>
-    <li>
-        <div class="seat selected"></div>
-        <small>Selected</small>
-    </li>
-    <li>
-        <div class="seat occupied"></div>
-        <small>Occupied</small>
-    </li>
-</ul>
 
-<div class="container">
-    <div class="screen"></div>
-
-    <div class="row">
-        A
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        A
-    </div>
-
-    <div class="row">
-        B
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        B
-    </div>
-
-    <div class="row">
-        C
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        C
-    </div>
-
-    <div class="row">
-        D
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        D
-    </div>
-
-    <div class="row">
-        E
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        E
-    </div>
-
-    <div class="row">
-        F
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat"></div>
-        F
-    </div>
-</div>
-
-<p class="text">
-    You have selected <span id="count">0</span> seats for a price of $<span id="price">0</span>
-</p>
-<form action="" method="post">
-    <div class="form-group mb-4">
-        <label class="font-italic" for="story">Promotion Code (MUST BE 12 Characters Long)</label>
-        <input class="form-control" id="promocode" name="promocode" minlength="12" maxlength="12" />
-    </div>
-    <div class="d-flex justify-content-center mb-4">
-
-<<<<<<< HEAD
-<div class="d-flex justify-content-center mb-4">
-    <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal" data-target="#exampleModal"
-        data-whatever="" onclick="priceFunc()">
-        <script>
-            function priceFunc() {
-                var x = document.getElementById("price").textContent;
-                localStorage.setItem("totalprice", x);
-
-                document.getElementById("paymentprice").value = x;
-            }
-        </script>
-        <form action="" method="post">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                <label class="font-italic">Seats avaliable</label>
-                <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
-                    <label class="form-check-label" for="A1">A1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
-                    <label class="form-check-label" for="A2">A2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
-                    <label class="form-check-label" for="A3">A3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
-                    <label class="form-check-label" for="A4">A4</label>
-                </div>
-            </div>
-            <br>
-			<button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
-        </form>
-    </button>
-</div>
-=======
-        <button type="button" id="payment" disabled class="btn btn-success" data-toggle="modal"
-            data-target="#exampleModal" data-whatever="" onclick="priceFunc()">
-            <script>
-                function priceFunc() {
-                    var x = document.getElementById("price").textContent;
-                    localStorage.setItem("totalprice", x);
->>>>>>> df79e96b61dcbe4972c93c52c0001e59d3d99e51
-
-                    document.getElementById("paymentprice").value = x;
-                }
-            </script>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                    <label class="font-italic">Seats avaliable</label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="seats" id="A1" value="A1">
-                        <label class="form-check-label" for="A1">A1</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="seats" id="A2" value="A2">
-                        <label class="form-check-label" for="A2">A2</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="seats" id="A3" value="A3">
-                        <label class="form-check-label" for="A3">A3</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="seats" id="A4" value="A4">
-                        <label class="form-check-label" for="A4">A4</label>
-                    </div>
-                </div>
-                <br>
-                <button id="btnSubmit" type="submit" class="btn btn-primary">Proceed to payment</button>
-        </button>
-    </div>
-</form>
 <script>
-    const container = document.querySelector('.container');
-    const seats = document.querySelectorAll('.row .seat:not(.occupied)');
-    const count = document.getElementById('count');
-    const price = document.getElementById('price');
+  var selected_seats = [];
+  var updated_seats = [];
+  var count = 0;
+  
+ 
+  const seatingPlanData = []
+  for (var i of ["A", "B", "C"]){
+    for (var j=1; j<=6; j++) {
+      var s = i + j.toString();
+      console.log(s);
+      seatingPlanData.push({id:s,row:i,col:j})
+    }
+  }
 
-    const movieSelect = document.getElementById('movie');
-    let ticketPrice = +movieSelect.value;
+  seatingPlanData.forEach(element => {
+    const avaliability = document.getElementById("seatings").innerHTML;
+    const seats = avaliability.split(",")
+    var seat = document.createElement('div');
+    var seatID = document.createTextNode(element.id);
 
-    const populateUI = () => {
-        const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
-        // console.log(selectedSeats);
-
-        if (selectedSeats !== null && selectedSeats.length > 0) {
-            seats.forEach((seat, index) => {
-                if (selectedSeats.indexOf(index) > -1) {
-                    seat.classList.add('selected');
-                }
-            });
-        }
-
-        const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
-        const selectedMoviePrice = localStorage.getItem('selectedMoviePrice');
-
-
-        if (selectedMovieIndex !== null) {
-            movieSelect.selectedIndex = selectedMovieIndex;
-        }
-
-        if (selectedMoviePrice !== null) {
-            count.innerText = selectedSeats.length;
-            price.innerText = selectedSeats.length * +selectedMoviePrice;
-        }
-    };
-
-    populateUI();
-
-    selectedMovie = (movieIndex, moviePrice) => {
-        //localStorage.setItem('selectedMovieIndex', movieIndex);
-        //localStorage.setItem('selectedMoviePrice', moviePrice);
-        selectedMovieIndex = 1
-        selectedMoviePrice = 10
-    };
-
-    const updateSelectedSeatsCount = () => {
-        const selectedSeats = document.querySelectorAll('.row .selected');
-
-        const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
-
-        localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
-
-        const selectedSeatsCount = selectedSeats.length;
-
-        count.innerText = selectedSeatsCount;
-        price.innerText = selectedSeatsCount * ticketPrice;
-        document.getElementById("payment").disabled = false;
-        if (selectedSeatsCount * ticketPrice === 0) {
-            document.getElementById("payment").disabled = true;
-        }
-    };
-
-    // Seat select event
-    container.addEventListener('click', e => {
-        if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
-            e.target.classList.toggle('selected');
-
-            updateSelectedSeatsCount();
-        }
-    });
-
-    // Movie select event
-    if (movieSelect.onclick) {
-        if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
-            e.target.classList.toggle('selected');
-
-            updateSelectedSeatsCount();
-        }
+    seat.id = element.id;
+    seat.appendChild(seatID);
+    if (seats.includes(seat.id)) {
+      seat.classList.add('seat-style');
+      updated_seats.push(seat.id);
+    } else {
+      seat.classList.add('seat-occupied-style');
     }
 
-    movieSelect.addEventListener('change', e => {
-        ticketPrice = +e.target.value;
-        selectedMovie(e.target.selectedIndex, e.target.value);
+    function seatClicked(e) {
+      if (this.classList == "seat-style") {
+        this.classList.remove('seat-style');
+        this.classList.add('seat-selected-style');
+        selected_seats.push(this.id);
+        updated_seats.splice(updated_seats.indexOf(this.id), 1);
+        selected_seats.sort();
+        updated_seats.sort();
+        count += 1;
+      } else if (seat.classList == "seat-selected-style") {
+        this.classList.remove('seat-selected-style');
+        this.classList.add('seat-style');
+        selected_seats.splice(selected_seats.indexOf(this.id), 1);
+        updated_seats.push(this.id);
+        selected_seats.sort();
+        updated_seats.sort();
+        count -= 1;
+      } else if (seat.classList == "seat-occupied-style") {
+        alert("Please choose a avaliable seat.");
+      }
 
-        updateSelectedSeatsCount();
-    });
+      document.getElementById("selected-seats").value = selected_seats;
+      document.getElementById("updated-seats").value = updated_seats;
+      document.getElementById("branch").value = document.getElementById("Sbranch").innerHTML;
+      document.getElementById("title").value = document.getElementById("Stitle").innerHTML;
+      document.getElementById("showtime").value = document.getElementById("Sshowtime").innerHTML;
+      document.getElementById("noTicket").value = count;
+      // code to execute goes here
+    }
+
+    seat.addEventListener('click', seatClicked, false);
+
+    document.getElementById('seating-plan').appendChild(seat);
+  })
 </script>
 
+<form method="post">
+  <input type="hidden" name="selected-seats" id="selected-seats">
+  <input type="hidden" name="updated-seats" id="updated-seats">
+  <input type="hidden" name="branch" id="branch">
+  <input type="hidden" name="title" id="title">
+  <input type="hidden" name="showtime" id="showtime">
+  <input type="hidden" name="noTicket" id="noTicket">
+  <input type="submit" value="Submit">
+</form>
+
+
 <style>
-    .cinema-seats {
-        display: flex;
-    }
+  .hiddens {
+    visibility: hidden;
+  }
 
-    .cinema-seat.seat {
-        cursor: pointer;
-    }
+  .seat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 125%;
+    width: 100%;
+  }
 
-    .cinema-seat.seat:hover:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 7px;
-    }
+  .seating {
+    height: 170px;
+    width: 350px;
+    display: grid;
+    gap: 10px;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 
+  .seat-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: black;
+    color: white;
+    border-radius: 20px 20px 5px 5px;
+  }
 
+  .seat-selected-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: lightseagreen;
+    color: white;
+    border-radius: 20px 20px 5px 5px;
+  }
 
-    .cinema-seat.seat.active:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 7px;
-    }
+  .seat-occupied-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: gray;
+    color: white;
+    border-radius: 20px 20px 5px 5px;
+  }
 
-    .left .cinema-row {
-        transform: skew(-15deg);
-        margin: 0 6px;
-    }
+  #seatings {
+    font-size: 0;
+  }
 
-    .left .cinema-row .seat {
-        width: 40px;
-        height: 70px;
-        border-radius: 7px;
-        background: linear-gradient(to top, #761818, #761818, #761818, #761818, #761818, #B54041, #F3686A);
-        margin-bottom: 10px;
-        transform: skew(20deg);
-        margin-top: -32px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
-    }
-
-    .row-2 {
-        transform: skew(-13deg);
-    }
-
-    .row-2.seat {
-        transform: skew(18deg);
-    }
-
-
-    .row-3 {
-        transform: skew(-12deg);
-    }
-
-    .row-3.seat {
-        transform: skew(16deg);
-    }
-
-    .row-4 {
-        transform: skew(-11deg);
-    }
-
-    .row-4.seat {
-        transform: skew(14deg);
-    }
-
-    .row-5 {
-        transform: skew(-10deg);
-    }
-
-    .row-5.seat {
-        transform: skew(12deg);
-    }
-
-
-    .row-6 {
-        transform: skew(-9deg);
-    }
-
-    .row-6.seat {
-        transform: skew(10deg);
-    }
-
-
-    .row-7 {
-        transform: skew(-8deg);
-    }
-
-    .row-7.seat {
-        transform: skew(8deg);
-    }
-
-    .right {
-        margin-left: 500px;
-        margin-top: -338px;
-    }
-
-    .right .cinema-row {
-        transform: skew(15deg);
-        margin: 0 6px;
-    }
-
-    .right .cinema-row .seat {
-        width: 40px;
-        height: 70px;
-        border-radius: 7px;
-        background: linear-gradient(to top, #761818, #761818, #761818, #761818, #761818, #B54041, #F3686A);
-        margin-bottom: 10px;
-        transform: skew(-8deg);
-        margin-top: -32px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
-    }
-
-    .row-2 {
-        transform: skew(-13deg);
-    }
-
-    .row-2.seat {
-        transform: skew(18deg);
-    }
-
-
-    .row-3 {
-        transform: skew(-12deg);
-    }
-
-    .row-3.seat {
-        transform: skew(16deg);
-    }
-
-
-    .row-4 {
-        transform: skew(-11deg);
-    }
-
-    .row-4.seat {
-        transform: skew(14deg);
-    }
-
-
-    .row-5 {
-        transform: skew(-10deg);
-    }
-
-    .row-5.seat {
-        transform: skew(12deg);
-    }
-
-
-    .row-6 {
-        transform: skew(-1deg);
-    }
-
-    .row-6.seat {
-        transform: skew(10deg);
-    }
-
-
-    .row-7 {
-        transform: skew(-8deg);
-    }
-
-    .row-7.seat {
-        transform: skew(8deg);
-    }
-
-    @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: #242333;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        font-family: 'Lato', sans-serif;
-        margin: 0;
-    }
-
-    .movie-container {
-        margin: 20px 0;
-    }
-
-    .movie-container select {
-        background-color: #fff;
-        border: 0;
-        border-radius: 5px;
-        font-size: 14px;
-        margin-left: 10px;
-        padding: 5px 15px 5px 15px;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-    }
-
-    .container {
-        perspective: 1000px;
-        margin-bottom: 30px;
-    }
-
-    .seat {
-        background-color: #444451;
-        height: 12px;
-        width: 15px;
-        margin: 3px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-
-    .seat.selected {
-        background-color: #6feaf6;
-    }
-
-    .seat.occupied {
-        background-color: #fff;
-    }
-
-    .seat:nth-of-type(2) {
-        margin-right: 18px;
-    }
-
-    .seat:nth-last-of-type(2) {
-        margin-left: 18px;
-    }
-
-    .seat:not(.occupied):hover {
-        cursor: pointer;
-        transform: scale(1.2);
-    }
-
-    .showcase .seat:not(.occupied):hover {
-        cursor: default;
-        transform: scale(1);
-    }
-
-    .showcase {
-        background: rgba(0, 0, 0, 0.1);
-        padding: 5px 10px;
-        border-radius: 5px;
-        color: #777;
-        list-style-type: none;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .showcase li {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 10px;
-    }
-
-    .showcase li small {
-        margin-left: 2px;
-    }
-
-    .row {
-        display: flex;
-        margin-left: 40%;
-    }
-
-    .screen {
-        background-color: #fff;
-        height: 70px;
-        width: 100%;
-        margin: 15px 0;
-        transform: rotateX(-45deg);
-        box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
-    }
-
-    p.text {
-        margin: 5px 0;
-    }
-
-    p.text span {
-        color: #6feaf6;
-    }
+  .submit_btn {
+    margin: 50px 48% 0 48%;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
