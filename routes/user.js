@@ -7,6 +7,22 @@ const User = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+})
+var upload = multer({ storage: storage })
+
+router.get('/picture', (req, res) => {
+    res.render('user/profile/updatepicture');
+});
+
+
 router.get('/login', (req, res) => {
     res.render('user/login');
 });

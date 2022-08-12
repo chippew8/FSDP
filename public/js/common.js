@@ -15,6 +15,10 @@ function ensureOneCheck(checkBoxName, messageId, submitId) {
         return true;
     }
 }
+
+
+
+
     
 function initialiseTitle() {
     let title = $('#title').val();
