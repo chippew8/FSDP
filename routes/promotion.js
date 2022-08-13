@@ -50,31 +50,27 @@ router.get('/addPromotion', isAdmin, (req, res) => {
     res.render('promos/addPromotion', {layout : 'adminmain'});
 });
 
-router.post('/addPromotion', (req, res) => {
+router.post('/addPromotion', async (req, res) => {
     let headline = req.body.headline;
     let description = req.body.description.slice(0, 4999);
+    let discount = req.body.discount;
     // Multi-value components return array of strings or undefined
     let code = req.body.code;
-    let promotionFound = Promotion.findOne({ where: { code: code } });
-         if (promotionFound) {
-             // If promotionFound is found, that means code is in use
-             flashMessage(res, 'error', code + ' is already in use.');
-            if (req.user.accounttype == 'Admin') {
-                res.render('promos/addPromotion', {layout: "adminmain"});
-            }
-            else if (req.user.accounttype == 'User') {
-                res.render('promos/addPromotion', {layout: "usermain"});
-            }
-            }
-        else {
+    const promotionFound = await Promotion.findOne({ where: { code: code } });
+         if (promotionFound == null) {
             Promotion.create(
-                { headline, description, code }
+                { headline, description, discount, code }
             )
             .then((promotion) => {
                 console.log(promotion.toJSON());
                 res.redirect('/promos/listPromotions');
             })
             .catch(err => console.log(err))
+            }
+        else {
+            // If promotionFound is found, that means code is in use
+            flashMessage(res, 'error', code + ' is already in use.');
+            res.render('promos/addPromotion');
         }
 });
 
@@ -89,11 +85,12 @@ router.get('/editPromotion/:id', isAdmin, (req, res) => {
 router.post('/editPromotion/:id', (req, res) => {
     let headline = req.body.headline;
     let description = req.body.description.slice(0, 4999);
+    let discount = req.body.discount;
     // Multi-value components return array of strings or undefined
     let code = req.body.code;
 
     Promotion.update(
-        { headline, description, code },
+        { headline, description, discount, code },
         { where: { id: req.params.id } }
     )
         .then((result) => {
@@ -116,13 +113,13 @@ router.get('/deletePromotion/:id', async function(req, res) {
         //     flashMessage(res, 'error', 'Unauthorised access');
         //     res.redirect('/video/listVideos');
         //     return;
-        // }   
+        // }
         let result = await Promotion.destroy({ where: { id: promo.id } });
         console.log(result + ' Promotion deleted');
         res.redirect('/promos/listPromotions');
     }
     catch (err) {
-        console.log(err);   
+        console.log(err);
     }
 });
 

@@ -31,7 +31,14 @@ router.get('/seats', isLoggedIn, (req, res) => {
 router.post('/seats', async (req, res) => {
     let promocode = req.body.promocode;
     let promo = await Promotion.findOne({ where: { code: promocode } });
-    let result = await Promotion.destroy({ where: { code: promocode } });
+    if (promo == true){
+        let result = await Promotion.destroy({ where: { code: promocode } });
+    }
+    else {
+         // If promotionFound is found, that means code is in use
+         flashMessage(res, 'error', code + ' is not found.');
+         res.render('/ticket/seats');
+    }
     console.log(promo);
     console.log(promocode);
     let selectedSeat = req.body.seats.toString();
