@@ -20,26 +20,27 @@ router.get('/addPromotion', (req, res) => {
     res.render('promos/addPromotion');
 });
 
-router.post('/addPromotion', (req, res) => {
+router.post('/addPromotion', async (req, res) => {
     let headline = req.body.headline;
     let description = req.body.description.slice(0, 4999);
+    let discount = req.body.discount;
     // Multi-value components return array of strings or undefined
     let code = req.body.code;
-    let promotionFound = Promotion.findOne({ where: { code: code } });
-         if (promotionFound) {
-             // If promotionFound is found, that means code is in use
-             flashMessage(res, 'error', code + ' is already in use.');
-            res.render('promos/addPromotion');
-            }
-        else {
+    const promotionFound = await Promotion.findOne({ where: { code: code } });
+         if (promotionFound == null) {
             Promotion.create(
-                { headline, description, code }
+                { headline, description, discount, code }
             )
             .then((promotion) => {
                 console.log(promotion.toJSON());
                 res.redirect('/promos/listPromotions');
             })
             .catch(err => console.log(err))
+            }
+        else {
+            // If promotionFound is found, that means code is in use
+            flashMessage(res, 'error', code + ' is already in use.');
+            res.render('promos/addPromotion');
         }
 });
 
@@ -54,11 +55,12 @@ router.get('/editPromotion/:id', (req, res) => {
 router.post('/editPromotion/:id', (req, res) => {
     let headline = req.body.headline;
     let description = req.body.description.slice(0, 4999);
+    let discount = req.body.discount;
     // Multi-value components return array of strings or undefined
     let code = req.body.code;
 
     Promotion.update(
-        { headline, description, code },
+        { headline, description, discount, code },
         { where: { id: req.params.id } }
     )
         .then((result) => {

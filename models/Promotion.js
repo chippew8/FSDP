@@ -6,6 +6,7 @@ const Promotion = db.define('promotion',
     {
         headline: { type: Sequelize.STRING },
         description: { type: Sequelize.STRING(5000) },
+        discount: { type: Sequelize.INTEGER},
         code: { type: Sequelize.STRING(12) },
     });
     
