@@ -31,16 +31,26 @@ router.post('/addMovie', (req, res) => {
     let classification = req.body.classification;
     let duration = req.body.duration;
     let seat = "A1,A2,A3,A4,A5,A6,B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,C6";
-    let branch = "Tampines";
+    var branch;
+    var showDateTime;
     
     for (var i of ["Tampines", "Bedok", "Yishun", "Woodlands"]){
-        for (var j of ["11:00", "14:00", "17:00", "17:30", "19:30", "20:00", "21:30", "20:30"]) {
-            Showtime.create(
-                {
-                    i, title, dateRelease, j, seat
-                }
-            )
-                .catch(err => console.log(err))
+        for (var j of ["2022-09-22", "2022-09-23", "2022-09-24", "2022-09-25", "2022-09-26", "2022-09-27", "2022-09-28", "2022-09-29"]) {
+            for (var s of ["11:00:00", "14:00:00", "17:00:00", "17:30:00", "19:30:00", "20:00:00", "21:30:00", "20:30:00"]) {
+                branch = i;
+                showDateTime = `${j} ${s}`;
+                // showDateTime = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+                console.log(showDateTime);
+                Showtime.create(
+                    {
+                        branch, title, showDateTime, seat
+                    }
+                )
+                    .then((showtime) => {
+                        console.log(showtime.toJSON());
+                    })
+                    .catch(err => console.log(err))
+            }
         }
       }
       

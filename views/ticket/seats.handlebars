@@ -3,7 +3,6 @@
 <div>
   <p class="hiddens" id="Sbranch">{{branch}}</p>
   <p class="hiddens" id="Stitle">{{title}}</p>
-  <p class="hiddens" id="Sshowtime">{{showtime}}</p>
 </div>
 <p id="seatings">{{seat}}</p>
 {{/each}}
@@ -20,7 +19,6 @@
   var selected_seats = [];
   var updated_seats = [];
   var count = 0;
-  
  
   const seatingPlanData = []
   for (var i of ["A", "B", "C"]){
@@ -55,6 +53,7 @@
         selected_seats.sort();
         updated_seats.sort();
         count += 1;
+        console.log(count);
       } else if (seat.classList == "seat-selected-style") {
         this.classList.remove('seat-selected-style');
         this.classList.add('seat-style');
@@ -63,15 +62,15 @@
         selected_seats.sort();
         updated_seats.sort();
         count -= 1;
+        console.log(count);
       } else if (seat.classList == "seat-occupied-style") {
         alert("Please choose a avaliable seat.");
       }
-
+      
       document.getElementById("selected-seats").value = selected_seats;
       document.getElementById("updated-seats").value = updated_seats;
       document.getElementById("branch").value = document.getElementById("Sbranch").innerHTML;
       document.getElementById("title").value = document.getElementById("Stitle").innerHTML;
-      document.getElementById("showtime").value = document.getElementById("Sshowtime").innerHTML;
       document.getElementById("noTicket").value = count;
       // code to execute goes here
     }
@@ -87,9 +86,8 @@
   <input type="hidden" name="updated-seats" id="updated-seats">
   <input type="hidden" name="branch" id="branch">
   <input type="hidden" name="title" id="title">
-  <input type="hidden" name="showtime" id="showtime">
   <input type="hidden" name="noTicket" id="noTicket">
-  <input type="submit" value="Submit">
+  <input type="submit" class="submit_btn" value="Submit">
 </form>
 
 
