@@ -19,6 +19,18 @@ function isAdmin(req, res, next) {
     res.redirect('/');
 }
 
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
@@ -72,10 +84,18 @@ router.get('/deleteuser/:id', isAdmin, async function (req, res) {
         res.redirect('/admin/userlist');
         return;
         }
-    let result = await User.destroy({ where: { id: user.id } });
-    console.log(result + ' User deleted');
-    res.redirect('/admin/userlist');
-    }
+        console.log(req.user.id)
+        if (req.user.id == user.id) {
+            flashMessage(res, 'error', 'Cannot delete self');
+            res.redirect('/admin/userlist');
+            return;
+        }
+        else {
+            let result = await User.destroy({ where: { id: user.id } });
+            console.log(result + ' User deleted');
+            res.redirect('/admin/userlist');
+            }
+        }
     catch (err) {
     console.log(err);
     }
