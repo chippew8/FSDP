@@ -40,16 +40,6 @@ router.post('/seats', (req, res) => {
     no_of_Ticket = req.body['noTicket'];
     console.log(no_of_Ticket)
     res.redirect('payment');
-    // Showtime.update(
-    //     { 'seat' :seats },
-    //     { where: { 'branch' : 'Bedok' } }
-    // )
-    //     .then(() => {
-    //         res.redirect('payment');
-    //     })
-    //     .catch(err => console.log(err));
-    // let story = req.body.story.slice(0, 1999);
-    // let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
 });
 
 router.get('/payment', (req, res) => {

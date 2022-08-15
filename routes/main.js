@@ -9,7 +9,7 @@ const Movie = require('../models/Movie');
 router.get('/', (req, res) => {
 	const title = 'Golden Dragon';
 	Movie.findAll({
-        order: [['createdAt', 'DESC']],
+        order: [['dateRelease', 'DESC']],
         raw: true
     })
         .then((movie) => {

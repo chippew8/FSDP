@@ -13,14 +13,18 @@ router.get('/listMovies', (req, res) => {
         order: [['dateRelease', 'DESC']],
         raw: true
     })
-        .then(
-            Showtime.findAll({})
-        )
-            .then((movie) => {
-                res.render('movie/listMovies', { movie });
+        .then((movie) => {
+            Showtime.findAll({
+                order: [['branch']],
+                raw: true
             })
-            .catch(err => console.log(err));
-    });
+                .then((showtime) => {
+                    res.render('movie/listMovies', { movie, showtime });
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+});
 
 router.get('/addMovie', (req, res) => {
     res.render('movie/addMovie');
@@ -41,8 +45,8 @@ router.post('/addMovie', (req, res) => {
     let seat = "A1,A2,A3,A4,A5,A6,B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,C6";
     var branch;
     var showDateTime;
-    
-    for (var i of ["Tampines", "Bedok", "Yishun", "Woodlands"]){
+
+    for (var i of ["Tampines", "Bedok", "Yishun", "Woodlands"]) {
         for (var j of ["2022-09-22", "2022-09-23", "2022-09-24", "2022-09-25", "2022-09-26", "2022-09-27", "2022-09-28", "2022-09-29"]) {
             for (var s of ["11:00:00", "14:00:00", "17:00:00", "17:30:00", "19:30:00", "20:00:00", "21:30:00", "20:30:00"]) {
                 branch = i;
@@ -60,11 +64,11 @@ router.post('/addMovie', (req, res) => {
                     .catch(err => console.log(err))
             }
         }
-      }
-      
+    }
+
     Movie.create(
         {
-            title, story, classification, duration, language, subtitles, genre, posterURL,dateRelease
+            title, story, classification, duration, language, subtitles, genre, posterURL, dateRelease
         }
     )
         .then((movie) => {
@@ -73,7 +77,7 @@ router.post('/addMovie', (req, res) => {
         })
         .catch(err => console.log(err))
 
-    
+
 });
 
 router.get('/editMovie/:id', (req, res) => {
@@ -135,5 +139,5 @@ router.get('/omdb', (req, res) => {
             res.json(data);
         });
 });
-    
+
 module.exports = router;

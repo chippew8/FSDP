@@ -1,4 +1,6 @@
 <div class="container">
+
+	{{!-- Admin side --}}
 	{{#if user}}
 	{{#if movie}}
 	<div class="card card-body">
@@ -76,12 +78,21 @@
 						aria-expanded="false" aria-controls="collapseOne{{id}}" style="text-decoration: none;">
 						Showtimes <i class="fas fa-chevron-down"></i>
 					</button>
+					{{#each showtime}}
+					{{#if title EQUALS movie.title }}
+					<div class="card-body">
+						<button type="button" class="btn btn-primary">{{title}}</button>
+					</div>
+					{{/if}}
+					{{/each}}
+					
 				</div>
+				{{!--
 				<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
 					<div class="card-body">
 						<button type="button" class="btn btn-primary">Primary</button>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 		{{/each}}
@@ -89,6 +100,8 @@
 	{{else}}
 	<h3>No movies available</h3>
 	{{/if}}
+
+	{{!-- User side --}}
 	{{else}}
 	{{#if movie}}
 	<div class="card card-body">
@@ -98,7 +111,7 @@
 			<div class="card-header">
 				<h5 class="card-title">{{title}}</h5>
 				{{story}}
-			</div>
+			</div>	
 			<div class="card-body">
 				<div class="row">
 					<div class="col-lg-2">
@@ -142,7 +155,7 @@
 
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -153,11 +166,16 @@
 						Showtimes <i class="fas fa-chevron-down"></i>
 					</button>
 				</div>
+				{{#each showtime}}
 				<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
 					<div class="card-body">
-						<button type="button" class="btn btn-primary">Primary</button>
+						<button type="button" class="btn btn-primary" value="{{title}}">
+							{{#if title}}
+							{{title}}
+							{{/if}}</button>
 					</div>
 				</div>
+				{{/each}}
 			</div>
 		</div>
 		{{/each}}
@@ -171,5 +189,5 @@
 <script>
 	$('[data-toggle=confirmation]').confirmation({
 		rootSelector: '[data-toggle=confirmation]',
-});
+	});
 </script>

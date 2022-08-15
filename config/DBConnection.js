@@ -13,11 +13,6 @@ const setUpDB = (drop) => {
     mySQLDB.authenticate()
         .then(() => {
             console.log('Database connected');
-            /*
-            Defines the relationship where a user has many videos.
-            The primary key from user will be a foreign key in video.
-            */
-            Cinema.hasMany(Movie);
             mySQLDB.sync({
                 force: drop
             });
