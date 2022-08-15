@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const Movie = require('../models/Movie')
 const Cinema = require('../models/Cinema')
-const Showing = require('../models/Showing')
+const Showing = require('../models/Showtime')
 
 router.get('/addShowing', (req, res) => {
     Movie.findAll({

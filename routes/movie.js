@@ -1,8 +1,11 @@
+const { config } = require('dotenv');
 const express = require('express')
 const router = express.Router();
 const moment = require('moment');
 const Movie = require('../models/Movie')
-const Showtime = require('../models/Showtime')
+require('dotenv').config();
+const fetch = require('node-fetch');
+const Showtime = require('../models/Showtime');
 // const ensureAuthenticated = require('../helpers/auth');
 
 router.get('/listMovies', (req, res) => {
@@ -24,12 +27,14 @@ router.post('/addMovie', (req, res) => {
     let title = req.body.title;
     let story = req.body.story.slice(0, 1999);
     let dateRelease = moment(req.body.dateRelease, 'DD/MM/YYYY');
+    let posterURL = req.body.posterURL;
     let language = req.body.language.toString();
     // Multi-value components return array of strings or undefined
     let subtitles = req.body.subtitles === undefined ? '' :
         req.body.subtitles.toString();
     let classification = req.body.classification;
     let duration = req.body.duration;
+    let genre = req.body.genre;
     let seat = "A1,A2,A3,A4,A5,A6,B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,C6";
     var branch;
     var showDateTime;
@@ -56,8 +61,7 @@ router.post('/addMovie', (req, res) => {
       
     Movie.create(
         {
-            title, story, classification, duration, language, subtitles,
-            dateRelease
+            title, story, classification, duration, language, subtitles, genre, posterURL,dateRelease
         }
     )
         .then((movie) => {
@@ -118,4 +122,15 @@ router.get('/deleteMovie/:id', async function (req, res) {
     }
 });
 
+router.get('/omdb', (req, res) => {
+    let apikey = process.env.OMDB_API_KEY;
+    let title = req.query.title;
+    fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apikey}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            res.json(data);
+        });
+});
+    
 module.exports = router;

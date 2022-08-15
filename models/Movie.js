@@ -11,9 +11,11 @@ const Movie = db.define('movie',
         language: { type: Sequelize.STRING },
         subtitles: { type: Sequelize.STRING },
         classification: { type: Sequelize.STRING },
-        duration: { type: Sequelize.INTEGER },
+        duration: { type: Sequelize.STRING },
         dateRelease: { type: Sequelize.DATE },
         branchCode: { type:Sequelize.STRING(2) },
+        genre: {type:Sequelize.STRING},
+        posterURL: {type:Sequelize.STRING}
     });
     
 module.exports = Movie;
