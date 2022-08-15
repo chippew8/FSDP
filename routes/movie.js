@@ -13,11 +13,14 @@ router.get('/listMovies', (req, res) => {
         order: [['dateRelease', 'DESC']],
         raw: true
     })
-        .then((movie) => {
-            res.render('movie/listMovies', { movie });
-        })
-        .catch(err => console.log(err));
-});
+        .then(
+            Showtime.findAll({})
+        )
+            .then((movie) => {
+                res.render('movie/listMovies', { movie });
+            })
+            .catch(err => console.log(err));
+    });
 
 router.get('/addMovie', (req, res) => {
     res.render('movie/addMovie');
