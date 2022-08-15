@@ -5,7 +5,6 @@
       <div class="col-lg-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center">
-            <img class="profile_img" width="240" height="240" src="..//uploads/${{loggeduser.id}}/${{req.file.file-name}}" alt="avatar">
             <h3>{{loggeduser.name}}</h3>
           </div>
           <div class="card-body">
@@ -52,6 +51,13 @@
             <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Booked Movies</h3>
           </div>
           <div class="card-body pt-0">
+              {{#each tickets}}
+              <ul class="list-unstyled">
+                <li><i class="fas fa-filter pr-1"></i>{{title}}</li>
+                <li><i class="fas fa-map-marker-alt pr-1"></i>Selected Seat: {{selectedSeat}}</li>
+                <li><i class="fas fa-map-marker-alt pr-1"></i>Branch: {{branch}}</li>
+              </ul>
+              {{/each}}
           </div>
         </div>
         {{/if}}
