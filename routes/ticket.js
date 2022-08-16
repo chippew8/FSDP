@@ -25,7 +25,12 @@ router.get('/seats', (req, res) => {
         .then((showtime) => {
             movieDate = moment(showtime[0].showDateTime).format('YYYY-MM-DD');
             movieTime = moment(showtime[0].showDateTime).format('hh:mm:ss');
-            res.render('ticket/seats', { showtime });
+            if (req.user.accounttype == 'User') {
+                res.render('ticket/seats', { showtime, layout : 'usermain' });
+            }
+            else if (req.user.accounttype == 'Admin') {
+                res.render('ticket/seats', { showtime, layout : 'adminmain' });
+            }  
         })
         .catch(err => console.log(err));
 });
@@ -45,7 +50,12 @@ router.post('/seats', (req, res) => {
 router.get('/payment', (req, res) => {
     var price = no_of_Ticket * 9;
     console.log(no_of_Ticket);
-    res.render('ticket/payment', { price, title, no_of_Ticket, movieDate, movieTime });
+    if (req.user.accounttype == 'User') {
+        res.render('ticket/payment', { price, title, no_of_Ticket, movieDate, movieTime, layout : 'usermain' });
+    }
+    else if (req.user.accounttype == 'Admin') {
+        res.render('ticket/payment', { price, title, no_of_Ticket, movieDate, movieTime, layout : 'adminmain' });
+    }  
 });
 
 router.post('/payment', (req, res) => {

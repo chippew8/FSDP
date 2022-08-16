@@ -8,6 +8,19 @@ const fetch = require('node-fetch');
 const Showtime = require('../models/Showtime');
 // const ensureAuthenticated = require('../helpers/auth');
 
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+
 router.get('/listMovies', (req, res) => {
     Movie.findAll({
         order: [['dateRelease', 'DESC']],
@@ -19,15 +32,31 @@ router.get('/listMovies', (req, res) => {
                 raw: true
             })
                 .then((showtime) => {
-                    res.render('movie/listMovies', { movie, showtime });
+                    if (req.isAuthenticated()) {
+                        // if user is admin, go next
+                        if (req.user.accounttype == 'Admin') {
+                            res.render('movie/listMovies', { movie, showtime, layout: 'adminmain'})
+                        }
+                        else if (req.user.accounttype == 'User') {
+                            res.render('movie/listMovies', { movie, showtime, layout: 'usermain'})
+                        }
+                    }
+                    else {
+                        res.render('movie/listMovies', { movie, showtime, layout: 'main' })
+                    }
                 })
                 .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
 });
 
-router.get('/addMovie', (req, res) => {
-    res.render('movie/addMovie');
+router.get('/addMovie', isAdmin, (req, res) => {
+    if (req.isAuthenticated()) {
+        // if user is admin, go next
+        if (req.user.accounttype == 'Admin') {
+            res.render('movie/addMovie', { layout: 'adminmain'})
+    }
+}
 });
 
 router.post('/addMovie', (req, res) => {
