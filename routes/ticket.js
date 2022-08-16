@@ -59,7 +59,7 @@ router.get('/payment', (req, res) => {
 });
 
 router.post('/payment', (req, res) => {
-    var customerID = "001";
+    var customerID = req.user.id;
     showDateTime = movieDate + " " + movieTime;
 
     Ticket.create(
@@ -85,7 +85,7 @@ router.post('/payment', (req, res) => {
 
 router.get('/listTicket', (req, res) => {
     Ticket.findAll({
-        where: { 'CustomerID': '001' },
+        where: { 'CustomerID': req.user.id },
         raw: true
     })
         .then((ticket) => {

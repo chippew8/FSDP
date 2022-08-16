@@ -35,7 +35,7 @@ router.get('/register', (req, res) => {
 router.get('/profile', (req, res) => {
     loggeduser = req.user
     Ticket.findAll({
-        where: { 'CustomerID': '001' },
+        where: { 'CustomerID': req.user.id },
         raw: true
     })
         .then((ticket) => {
