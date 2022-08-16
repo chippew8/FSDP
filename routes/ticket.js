@@ -14,7 +14,20 @@ var movieDate;
 var movieTime;
 var seats;
 var showDateTime;
+var iD;
 // const ensureAuthenticated = require('../helpers/auth');
+
+function isAdmin(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
 
 function isLoggedIn(req, res, next) {
 
@@ -28,51 +41,55 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-router.get('/seats', isLoggedIn, (req, res) => {
+router.get('/seats/:id', isLoggedIn, (req, res) => {
     Showtime.findAll({
-        where: { 'id': '1' },
+        where: { 'id': req.params.id },
         raw: true
     })
         .then((showtime) => {
-            movieDate = moment(showtime[0].showDateTime).format('YYYY-MM-DD');
-            movieTime = moment(showtime[0].showDateTime).format('hh:mm:ss');
+            movieDate = moment(showtime.showDateTime).format('YYYY-MM-DD');
+            movieTime = moment(showtime.showDateTime).format('hh:mm:ss');
             if (req.user.accounttype == 'User') {
                 res.render('ticket/seats', { showtime, layout : 'usermain' });
             }
             else if (req.user.accounttype == 'Admin') {
                 res.render('ticket/seats', { showtime, layout : 'adminmain' });
-            }  
+            }
+            else {
+                flashMessage(res, 'error', 'Login first');
+                res.redirect('movies/listMovies');
+            }
         })
         .catch(err => console.log(err));
 });
 
 
-router.post('/seats', (req, res) => {
+router.post('/seats/:id', (req, res) => {
     selectedSeat = req.body['selected-seats'];
     updated_seats = req.body['updated-seats'];
-    seats = updated_seats.toString();
+    seats = updated_seats;
     branch = req.body['branch'];
     title = req.body['title'];
     no_of_Ticket = req.body['noTicket'];
     console.log(no_of_Ticket)
-    res.redirect('payment');
+    var price = no_of_Ticket * 9;
+    iD = req.params.id;
+    res.redirect('../payment');
 });
 
 router.get('/payment', isLoggedIn, (req, res) => {
     var price = no_of_Ticket * 9;
-    console.log(no_of_Ticket);
     if (req.user.accounttype == 'User') {
-        res.render('ticket/payment', { price, title, no_of_Ticket, movieDate, movieTime, layout : 'usermain' });
+        res.render('ticket/payment', { price, branch, title, no_of_Ticket, movieDate, movieTime, layout : 'usermain' });
     }
     else if (req.user.accounttype == 'Admin') {
-        res.render('ticket/payment', { price, title, no_of_Ticket, movieDate, movieTime, layout : 'adminmain' });
+        res.render('ticket/payment', { price, branch, title, no_of_Ticket, movieDate, movieTime, layout : 'adminmain' });
     }  
 });
 
 router.post('/payment', (req, res) => {
     var customerID = req.user.id;
     showDateTime = movieDate + " " + movieTime;
-
     Ticket.create(
         {
             customerID, branch, title, showDateTime, selectedSeat
@@ -85,7 +102,7 @@ router.post('/payment', (req, res) => {
 
     Showtime.update(
         { 'seat': seats },
-        { where: { 'id': '1' } }
+        { where: { 'id': iD } }
     )
         .then((result) => {
             console.log(result[0] + ' showtime updated');
@@ -100,6 +117,18 @@ router.get('/listTicket', (req, res) => {
         raw: true
     })
         .then((ticket) => {
+            if (req.isAuthenticated()) {
+                // if user is admin, go next
+                if (req.user.accounttype == 'Admin') {
+                    res.render('movie/listMovies', { ticket, movieDate, movieTime, layout: 'adminmain'})
+                }
+                else if (req.user.accounttype == 'User') {
+                    res.render('movie/listMovies', { ticket, movieDate, movieTime, layout: 'usermain'})
+                }
+            }
+            else {
+                res.render('ticket/listTicket', { ticket, movieDate, movieTime, layout: 'main' });
+            }
             res.render('ticket/listTicket', { ticket, movieDate, movieTime });
         })
         .catch(err => console.log(err));

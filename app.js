@@ -9,7 +9,7 @@ const Handlebars = require('handlebars');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
-const helpers = require('./helpers/handlebars')
+const helpers = require('./helpers/handlebars');
 require('dotenv').config();
 
 /*

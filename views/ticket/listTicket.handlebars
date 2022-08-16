@@ -2,7 +2,7 @@
 	{{#if admin}}
 		{{#if ticket}}
 			<div class="card card-body">
-				<h3 class="text-primary">Movies Available</h3>
+				<h3 class="text-primary">Tickets bought</h3>
 				{{#each ticket}}
 				<div class="card border-primary mb-2 w-100 mx-auto">
 					<div class="card-header">
@@ -78,12 +78,12 @@
 				{{/each}}
 			</div>
 			{{else}}
-			<h3>No Movies Available</h3>
+			<h3>No tickets bought</h3>
 			{{/if}}
 	{{else}}
 		{{#if ticket}}
 			<div class="card card-body">
-				<h3 class="text-primary">Movies Available</h3>
+				<h3 class="text-primary">Tickets bought</h3>
 				{{#each ticket}}
 				<div class="card border-primary mb-2 w-100 mx-auto">
 					<div class="card-header">
@@ -121,7 +121,7 @@
 			{{/each}}
 		</div>
 		{{else}}
-		<h3>No Movies Available</h3>
+		<h3>No tickets bought</h3>
 		{{/if}}		
 	{{/if}}
 </div>
