@@ -16,8 +16,19 @@ var seats;
 var showDateTime;
 // const ensureAuthenticated = require('../helpers/auth');
 
+function isLoggedIn(req, res, next) {
 
-router.get('/seats', (req, res) => {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+       // if user is admin, go next
+       if (req.user.accounttype == 'User' || req.user.accounttype == 'Admin') {
+         return next();
+       }
+    }
+    res.redirect('/');
+}
+
+router.get('/seats', isLoggedIn, (req, res) => {
     Showtime.findAll({
         where: { 'id': '1' },
         raw: true
@@ -47,7 +58,7 @@ router.post('/seats', (req, res) => {
     res.redirect('payment');
 });
 
-router.get('/payment', (req, res) => {
+router.get('/payment', isLoggedIn, (req, res) => {
     var price = no_of_Ticket * 9;
     console.log(no_of_Ticket);
     if (req.user.accounttype == 'User') {
