@@ -9,8 +9,9 @@ const Handlebars = require('handlebars');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
-const helpers = require('./helpers/handlebars')
+const helpers = require('./helpers/handlebars');
 require('dotenv').config();
+
 /*
 * Creates an Express server - Express is a web application framework for creating web applications
 * in Node JS.
@@ -117,9 +118,8 @@ const movieRoute = require('./routes/movie');
 const ticketRoute = require('./routes/ticket');
 const adminRoute = require('./routes/admin');
 const promoRoute = require('./routes/promotion');
-const e = require('connect-flash');
-const multer = require('multer');
-const req = require('express/lib/request');
+const cinemaRoute = require('./routes/cinema');
+// const showRoute = require('./routes/showing');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
@@ -128,6 +128,8 @@ app.use('/movie', movieRoute);
 app.use('/promos', promoRoute);
 app.use('/ticket', ticketRoute);
 app.use('/admin', adminRoute);
+app.use('/cinema', cinemaRoute)
+// app.use('/showing', showRoute)
 
 /*
 * Creates a port for express server since we don't want our app to clash with well known

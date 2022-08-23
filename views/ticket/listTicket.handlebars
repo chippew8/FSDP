@@ -1,0 +1,133 @@
+<div class="container">
+	{{#if admin}}
+		{{#if ticket}}
+			<div class="card card-body">
+				<h3 class="text-primary">Tickets bought</h3>
+				{{#each ticket}}
+				<div class="card border-primary mb-2 w-100 mx-auto">
+					<div class="card-header">
+						<h5 class="card-title">{{title}}</h5>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-3">
+						<p class="font-italic">Movie Date</p>
+						<p class="text-info">{{ movieDate }}</p>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-2">
+						<p class="font-italic">Movie Time</p>
+						<p class="text-info">{{ movieTime }}</p>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-2">
+						<p class="font-italic">Branch</p>
+						<p class="text-info">{{ branch }}</p>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-2">
+						<p class="font-italic">Seats</p>
+						<p class="text-info">{{ selectedSeat }}</p>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-2">
+						<p>
+							<a class="nav-link" href="/ticket/seats">Seats</a>
+						</p>
+						<p>
+							<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Cancel
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion" id="storyAccordion">
+				<div class="card-header" id="headingOne">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
+						aria-expanded="false" aria-controls="collapseOne{{id}}" style="text-decoration: none;">
+						Cinemas <i class="fas fa-chevron-down"></i>
+					</button>
+				</div>
+				<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#storyAccordion">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Movie Date</p>
+								<p class="text-info">{{ movieDate }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Movie Time</p>
+								<p class="text-info">{{ movieTime }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Branch</p>
+								<p class="text-info">{{ branch }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Seats</p>
+								<p class="text-info">{{ selectedSeat }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p>
+									<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+										<i class="far fa-trash-alt"></i>
+										Cancel
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			{{else}}
+			<h3>No tickets bought</h3>
+			{{/if}}
+	{{else}}
+		{{#if ticket}}
+			<div class="card card-body">
+				<h3 class="text-primary">Tickets bought</h3>
+				{{#each ticket}}
+				<div class="card border-primary mb-2 w-100 mx-auto">
+					<div class="card-header">
+						<h5 class="card-title">{{title}}</h5>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Movie Date</p>
+								<p class="text-info">{{ formatDate showDateTime 'DD MMM YYYY' }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Movie Time</p>
+								<p class="text-info">{{  formatDate showDateTime 'hh mm'  }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-3">
+								<p class="font-italic">Branch</p>
+								<p class="text-info">{{ branch }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p class="font-italic">Seats</p>
+								<p class="text-info">{{ selectedSeat }}</p>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-2">
+								<p>
+									<a href="/ticket/deleteTicket/{{id}}" class="card-link" data-toggle="confirmation" data-title="Confirm delete?">
+										<i class="far fa-trash-alt"></i>
+										Cancel
+									</a>
+								</p>
+							</div>
+						</div>
+					</div>
+			</div>
+			{{/each}}
+		</div>
+		{{else}}
+		<h3>No tickets bought</h3>
+		{{/if}}		
+	{{/if}}
+</div>
+
+<script>
+	$('[data-toggle=confirmation]').confirmation({
+		rootSelector: '[data-toggle=confirmation]',
+	});
+</script>

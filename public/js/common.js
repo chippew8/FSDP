@@ -16,10 +16,6 @@ function ensureOneCheck(checkBoxName, messageId, submitId) {
     }
 }
 
-
-
-
-    
 function initialiseTitle() {
     let title = $('#title').val();
     let titleArr = [];
@@ -31,4 +27,25 @@ function initialiseTitle() {
         }
         $('#title').val(initTitle);
     }
+}
+
+function getOMdbMovie() {
+    let title = $('#title').val();
+    fetch(`/movie/omdb?title=${title}`)
+        .then(res => res.json())
+        .then((data) => {
+            if (data.Response === 'False') {
+                $('#poster').attr('src', '/img/no-image.jpg');
+                $('#OMdbErr').html('Unavailable').show();
+            }
+            else {
+                $('#OMdbErr').hide();
+                $('#poster').attr('src', data.Poster);
+                $('#posterURL').val(data.Poster); // hidden input field to submit
+                $('#story').val(data.Plot);
+                $('#genre').val(data.Genre);
+                $('#duration').val(data.Runtime);
+                $('#datepicker').val(moment(new Date(data.Released)).format('DD/MM/YYYY'));
+            }
+        })
 }

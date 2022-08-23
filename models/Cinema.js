@@ -1,4 +1,3 @@
-const sequelize = require('sequelize');
 const Sequelize = require('sequelize');
 const db = require('../config/DBConfig');
 
@@ -7,8 +6,7 @@ const db = require('../config/DBConfig');
 const Cinema = db.define('cinema',
     {
         branch: { type:Sequelize.STRING },
-        branchCode: { type:Sequelize.STRING(2),
-                      primaryKey: true }
+        branchCode: { type:Sequelize.STRING(3) }
     });
     
 module.exports = Cinema;

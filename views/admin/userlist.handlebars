@@ -1,40 +1,47 @@
 <!doctype html>
 <html lang="en">
 
-
-<div class="content">
-            <!-- Table Start -->
-            <div class="container-fluid pt-4 px-4">
-                {{#if users}}
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">User List</h6>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Update</th>
-                                        <th scope="col">Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each users}}
-                                    <tr>
-                                        <th scope="row">{{id}}</th>
-                                        <td>{{name}}</td>
-                                        <td>{{email}}</td>
-                                        <td><a href="/admin/updateuser/{{id}}"><button type="button" class="btn btn-primary m-2">Update</button></td></a>
-                                        <td><a href="/admin/deleteuser/{{id}}"><button type="button" class="btn btn-danger m-2">Delete</button></a></td>
-                                    </tr>
-                                    {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
+<div class="col-lg-9 mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+          <table class="table manage-users-top mb-0">
+            <thead>
+              <tr>
+                <th>User List</th>
+                <th class="text-center"></th>
+                <th class="action text-right"></th>
+                <th class="action text-right"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each users}}
+              <tr class="user-list">
+                <td class="title">
+                  <div class="user-list-details">
+                    <div class="user-list-info">
+                      <div class="userlist-list-title">
+                        <h5 class="mb-0"><a href="#">{{name}}</a></h5>
+                      </div>
+                      <div class="candidate-list-option">
+                        <ul class="list-unstyled">
+                          <li><i class="fas fa-filter pr-1"></i>{{email}}</li>
+                          <li><i class="fas fa-map-marker-alt pr-1"></i>User ID: {{id}}</li>
+                          <li><i class="fas fa-map-marker-alt pr-1"></i>Type: {{accounttype}}</li>
+                          <td><a href="/admin/deleteuser/{{id}}"><button type="button" class="btn btn-danger m-2">Delete</button></a></td>
+                          <td><a href="/admin/updateuser/{{id}}"><button type="button" class="btn btn-primary m-2">Update</button></td></a>
+                        </ul>
+                      </div>
                     </div>
-                </div>
-            {{/if}}
-            </div>
+                  </div>
+                </td> 
+              </tr>
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </html>

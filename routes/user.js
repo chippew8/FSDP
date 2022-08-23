@@ -6,6 +6,7 @@ const flashMessage = require('../helpers/messenger');
 const User = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const Ticket = require('../models/Ticket');
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -33,12 +34,18 @@ router.get('/register', (req, res) => {
 
 router.get('/profile', (req, res) => {
     loggeduser = req.user
-    if (loggeduser.accounttype == 'User') {
-        res.render('user/profile/profile', { loggeduser, layout : 'usermain' });
-    }
-    else if (loggeduser.accounttype == 'Admin') {
-        res.render('user/profile/profile', { loggeduser, layout : 'adminmain' });
-    }
+    Ticket.findAll({
+        where: { 'CustomerID': req.user.id },
+        raw: true
+    })
+        .then((ticket) => {
+            if (loggeduser.accounttype == 'User') {
+                res.render('user/profile/profile', { loggeduser, tickets : ticket, layout : 'usermain' });
+            }
+            else if (loggeduser.accounttype == 'Admin') {
+                res.render('user/profile/profile', { loggeduser, tickets : ticket, layout : 'adminmain' });
+            }        })
+        .catch(err => console.log(err));
 });
 
 router.get("/profile/updateprofile/:id", function(req,res){

@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="card card-body">
+		<h3>Register Cinema</h3>
+		<form action="" method="post">
+			<div class="form-group">
+				{{!-- Practical 5 Exercise 2: Add a title input text here named 'title'--}}
+				<label class="font-italic" for="branchCode"><h5>Branch Code</h5></label>
+				<input class="form-control" id="branchCode" name="branchCode" onblur="initialiseTitle()" maxlength="3"/>
+			</div>
+			<div class="form-group mb-4">
+				<label class="font-italic" for="branch"><h5>Branch Name</h5></label>
+				<textarea class="form-control" id="branch" name="branch"  maxlength="100"></textarea>
+			</div>
+			<br>
+			<button id="btnSubmit" type="submit" class="btn btn-primary">Save
+			</button>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		uiLibrary: 'bootstrap4',
+		value: moment().format('DD/MM/YYYY'),
+	});
+</script>
